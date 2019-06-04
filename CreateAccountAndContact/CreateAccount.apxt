@@ -9,6 +9,21 @@ trigger CreateAccount on Account (before insert, after insert) {
 	//After account is created, create a default contact.
     if (Trigger.isAfter && Trigger.isInsert) {
         
-        CreateContactAfterAccountCreation.saveContact(CreateContactAfterAccountCreation.searchAccountByLastModifiedDate());
+        List<Contact> allContacts = new List<Contact>();
+        
+        for (Account eachAccount: Trigger.new) {
+            
+            Contact eachContact = new Contact(AccountId = eachAccount.Id, FirstName = 'John',
+                        LastName = 'Doe', Phone = String.escapeSingleQuotes(eachAccount.Phone),
+                        MailingStreet = String.escapeSingleQuotes(eachAccount.BillingStreet),
+                        MailingCity = String.escapeSingleQuotes(eachAccount.BillingCity),
+                        MailingState = String.escapeSingleQuotes(eachAccount.BillingState),
+                        MailingPostalCode = String.escapeSingleQuotes(eachAccount.BillingPostalCode),
+                        MailingCountry = String.escapeSingleQuotes(eachAccount.BillingCountry));
+            
+            allContacts.add(eachContact);
+        }
+        
+        insert allContacts;
     } 
 }
