@@ -1,0 +1,6 @@
+trigger AccountTrigger on Account (before insert, after insert) {
+    //We want to create a contact after an account is inserted into the database
+    if(trigger.isInsert && trigger.isAfter){
+		AccountHelper.createContact(trigger.new);
+    }
+}

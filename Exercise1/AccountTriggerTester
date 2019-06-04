@@ -1,0 +1,48 @@
+@isTest
+public class AccountTriggerTester {
+
+    /*@testSetup
+    private static void createNewAccounts(){
+        Account newAccount = new Account();
+        newAccount.Name = 'TestAccount';
+        newAccount.ShippingCity = 'Reston';
+        newAccount.ShippingCountry = 'USA';
+        newAccount.ShippingPostalCode = '12345';
+        newAccount.ShippingState = 'VA';
+        newAccount.ShippingStreet = 'Drive Dr.';
+        insert newAccount;
+    } */
+    
+    @isTest private static void testSinglePositive(){
+        Test.startTest();
+        /*Account newAccount = [SELECT Name, shippingAddress
+                              FROM Account
+                              WHERE Name = 'TestAccount'
+                              LIMIT 1]; */
+        // Create a new account to be inserted
+        Account newAccount = new Account();
+        newAccount.Name = 'TestAccount';
+        newAccount.ShippingCity = 'Reston';
+        newAccount.ShippingCountry = 'USA';
+        newAccount.ShippingPostalCode = '12345';
+        newAccount.ShippingState = 'VA';
+        newAccount.ShippingStreet = 'Drive Dr.';
+        insert newAccount;
+        System.debug('Account inserted');
+        //Query for the contact that was created by the trigger
+        List<Contact> newContacts = [SELECT LastName, MailingCity, MailingCountry, MailingPostalCode, MailingState, MailingStreet
+                                     FROM Contact
+                                     WHERE LastName = 'temporary'];
+        //Make sure only one contact was created
+        System.assertEquals(1, newContacts.size());
+        //Make sure the mailing address is set to the shipping address
+        System.assertEquals(newAccount.ShippingCity, newContacts[0].MailingCity);
+        System.assertEquals(newAccount.ShippingCountry, newContacts[0].MailingCountry);
+        System.assertEquals(newAccount.ShippingPostalCode, newContacts[0].MailingPostalCode);
+        System.assertEquals(newAccount.ShippingState, newContacts[0].MailingState);
+        System.assertEquals(newAccount.ShippingStreet, newContacts[0].MailingStreet);
+
+        Test.stopTest();
+        
+    }
+}

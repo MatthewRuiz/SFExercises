@@ -1,0 +1,27 @@
+public class AccountHelper {
+
+    public static void createContact(List<Account> newAccounts){
+        //Create a new list of contacts that will be inserted into the database
+        List<Contact> newContacts = new List<Contact>();
+        //We will need to create a contact for each account
+        for(Account newAccount : newAccounts){
+            //System.debug('newAccount.ShippinasdasdasdgStreet: ' + newAccount.ShippingStreet);
+            Contact newContact = new Contact();
+            newContact.accountId = newAccount.id;
+            //requirments state the name should be temporary
+            newContact.LastName = 'temporary';
+            //Set mailing address to shipping address
+            newContact.MailingCity = newAccount.ShippingCity;
+            newContact.MailingStreet = newAccount.ShippingStreet;
+            //System.debug('newContact.MailingStsdsdsreet: ' + newContact.MailingStreet);
+            newContact.MailingCountry = newAccount.ShippingCountry;
+            newContact.MailingPostalCode = newAccount.ShippingPostalCode;
+            newContact.MailingState = newAccount.ShippingState;
+            //add contact to list
+            newContacts.add(newContact);
+        }
+        
+        insert newContacts;
+        //System.debug('maiilingcity: ' + newContacts);
+    }
+}
