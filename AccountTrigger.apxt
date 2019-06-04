@@ -1,0 +1,8 @@
+trigger AccountTrigger on Account (after insert) {
+    
+    if(Trigger.isAfter && Trigger.isInsert){
+        AfterAccInsertCon.method1(Trigger.new);
+    }
+    
+    
+}
