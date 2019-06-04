@@ -10,4 +10,5 @@ System.debug([SELECT Name FROM Account ORDER BY Name DESC]);
 //query for all contacts on all accounts
 System.debug([SELECT Name, (SELECT Name FROM Contacts) FROM Account]);
 
-//
+//query for accounts in the energy industry and related contacts
+System.debug([SELECT Name, (SELECT Name FROM Contacts) FROM Account WHERE Industry = 'Energy']);
