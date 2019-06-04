@@ -1,0 +1,7 @@
+trigger AccountIDTrigger on Account (after insert) {
+    if (Trigger.isAfter && Trigger.isInsert) {
+        for (Account thisAccount : Trigger.New) {
+            system.debug(thisAccount.Id);
+        }
+    }
+}

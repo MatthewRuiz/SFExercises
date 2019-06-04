@@ -1,0 +1,13 @@
+@isTest
+public class AccountIDTriggerTest {
+    @isTest
+    public static void testAccountIdTrigger() {
+        List<Account> testAccount = new List<Account>();
+        for (Integer i = 0; i < 10; i++) {
+            testAccount.add(new Account(name='Industry ' + i));
+        }
+        test.startTest();
+        insert testAccount;
+        test.stopTest();
+    }
+}
