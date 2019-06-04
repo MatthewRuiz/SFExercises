@@ -1,0 +1,14 @@
+trigger CreateAccount on Account (before insert, after insert) {
+
+    //Validate an account before adding record.
+    if (Trigger.isBefore && Trigger.isInsert) {
+        
+        ValidateAccountBeforeCreation.addAccount(Trigger.new);
+    }
+    
+	//After account is created, create a default contact.
+    if (Trigger.isAfter && Trigger.isInsert) {
+        
+        CreateContactAfterAccountCreation.saveContact(CreateContactAfterAccountCreation.searchAccountByLastModifiedDate());
+    } 
+}
