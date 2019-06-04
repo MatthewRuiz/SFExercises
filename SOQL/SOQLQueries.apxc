@@ -1,3 +1,5 @@
 //all accounts with  520 area code 
-System.debug([SELECT Name FROM Account WHERE Phone LIKE '_520%']);
+System.debug([SELECT Name, Phone FROM Account WHERE Phone LIKE '_520%']);
 
+//select accounts where ther eis a website
+System.debug([SELECT Name, Website FROM Account WHERE Website != null]);
