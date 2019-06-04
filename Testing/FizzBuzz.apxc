@@ -28,3 +28,4 @@ public class FizzBuzz {
     private static boolean isDivisibleBy(Integer dividend, Integer divisor) {
         return Math.mod(dividend, divisor) == 0; 
     }
+}
