@@ -12,6 +12,11 @@ public class AccountTriggerHelper {
             Contact newContact = new Contact();
             newContact.AccountId = acc.id;
             newContact.LastName = Datetime.now().format();
+            newContact.MailingStreet = acc.ShippingStreet;
+            newContact.MailingCity = acc.ShippingCity;
+            newContact.MailingState = acc.ShippingState;
+            newContact.MailingPostalCode = acc.ShippingPostalCode;
+            newContact.MailingCountry = acc.ShippingCountry;
             contactsToInsert.add(newContact);
         }
         insert contactsToInsert;
