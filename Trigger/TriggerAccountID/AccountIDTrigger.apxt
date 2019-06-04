@@ -1,5 +1,6 @@
 trigger AccountIDTrigger on Account (after insert) {
     if (Trigger.isAfter && Trigger.isInsert) {
+        // Account Id only populate in after insert, thus sys.debug in after insert. 
         for (Account thisAccount : Trigger.New) {
             system.debug(thisAccount.Id);
         }

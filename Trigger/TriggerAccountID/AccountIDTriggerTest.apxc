@@ -2,10 +2,13 @@
 public class AccountIDTriggerTest {
     @isTest
     public static void testAccountIdTrigger() {
+        // Create 10 dummy record and insert
         List<Account> testAccount = new List<Account>();
         for (Integer i = 0; i < 10; i++) {
             testAccount.add(new Account(name='Industry ' + i));
         }
+        
+        // Create new government limit
         test.startTest();
         insert testAccount;
         test.stopTest();

@@ -1,0 +1,22 @@
+@isTest
+public class AccountContacTriggerTest {
+    @isTest
+    public static void testAccountContacTrigger() {
+        List<Account> testAccount = new List<Account>();
+        for (Integer i = 0; i < 10; i++) {
+            testAccount.add(new Account(name='Speedwagon R&D Department ' + i));
+        }
+        test.startTest();
+        insert testAccount;
+        test.stopTest();
+        
+        List<Contact> newContact = [SELECT Id, AccountId, FirstName FROM Contact WHERE LastName LIKE 'Speedwagon%'];
+        List<Account> newAccount = [SELECT Id, name FROM Account WHERE name LIKE 'Speedwagon%' AND Id IN (SELECT AccountId FROM Contact)];
+        
+        for (Account a : newAccount) {
+            for (Contact c : newContact) {
+                System.assertEquals(a.Id, c.AccountId);
+            }
+        }
+    }
+}

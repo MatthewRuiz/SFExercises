@@ -1,0 +1,15 @@
+trigger AccountContactTrigger on Account (after insert) {
+    if (Trigger.isAfter && Trigger.isInsert) {
+        // Populate AccountId onto new Contact only in after insert.
+        List<Contact> newContact = new List<Contact>();
+        for (Account a : Trigger.new) {
+            Contact cont = new Contact();
+            cont.AccountId = a.Id;
+            cont.FirstName = 'Robert E. O.';
+            cont.LastName = 'Speedwagon';
+            newContact.add(cont);
+        }
+        
+        insert newContact;
+    }
+}
