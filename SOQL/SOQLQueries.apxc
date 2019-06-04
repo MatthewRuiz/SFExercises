@@ -12,3 +12,6 @@ System.debug([SELECT Name, (SELECT Name FROM Contacts) FROM Account]);
 
 //query for accounts in the energy industry and related contacts
 System.debug([SELECT Name, (SELECT Name FROM Contacts) FROM Account WHERE Industry = 'Energy']);
+
+//query for number of leads with the same lead source
+System.debug([SELECT LeadSource, COUNT(Id) FROM Lead GROUP BY LeadSource]);
