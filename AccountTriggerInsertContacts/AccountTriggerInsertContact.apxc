@@ -1,14 +1,14 @@
 public class AccountTriggerInsertContact {
     
-    public static void createContact(List<Account> accounts){
+    public static void createContact(List<Account> accs){
         Integer i = 1;
         List<Contact> ContactList = new List<Contact>();
         
-        for(Account a: accounts){
+        for(Account a: accs){
             Contact c = new Contact(LastName='Smith ' + i, AccountId=a.Id, 
-                                    MailingCity=a.ShippingCity, MailingCountry=a.ShippingCountry,
-                                    MailingPostalCode=a.ShippingPostalCode, MailingState=a.ShippingState,
-                                    MailingStreet=a.ShippingStreet);
+                                   MailingCity=a.ShippingCity, MailingCountry=a.ShippingCountry,
+                                   MailingPostalCode=a.ShippingPostalCode, MailingState=a.ShippingState,
+                                   MailingStreet=a.ShippingStreet);
             ContactList.add(c);
             i++;
         }
