@@ -1,0 +1,220 @@
+[
+    [
+        "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app",
+        {
+            "state": "n",
+            "sourcePath": "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app",
+            "isDirectory": true,
+            "isMetadataFile": false,
+            "size": 0,
+            "modifiedTime": 1559654368256,
+            "changeTime": 1559654368256,
+            "contentHash": "b28b7af69320201d1cf206ebf28373980add1451",
+            "isWorkspace": false,
+            "isArtifactRoot": true
+        }
+    ],
+    [
+        "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app\\main",
+        {
+            "state": "n",
+            "sourcePath": "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app\\main",
+            "isDirectory": true,
+            "isMetadataFile": false,
+            "size": 0,
+            "modifiedTime": 1559654368256,
+            "changeTime": 1559654368256,
+            "contentHash": "7505d64a54e061b7acd54ccd58b49dc43500b635",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app\\main\\default",
+        {
+            "state": "u",
+            "sourcePath": "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app\\main\\default",
+            "isDirectory": true,
+            "isMetadataFile": false,
+            "size": 0,
+            "modifiedTime": 1559656971047,
+            "changeTime": 1559656971047,
+            "contentHash": "cc9d400e06af6d830be20eb8814cfc244ce50e1b"
+        }
+    ],
+    [
+        "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app\\main\\default\\aura",
+        {
+            "state": "n",
+            "sourcePath": "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app\\main\\default\\aura",
+            "isDirectory": true,
+            "isMetadataFile": false,
+            "size": 0,
+            "modifiedTime": 1559654368256,
+            "changeTime": 1559654368256,
+            "contentHash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app\\main\\default\\lwc",
+        {
+            "state": "n",
+            "sourcePath": "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app\\main\\default\\lwc",
+            "isDirectory": true,
+            "isMetadataFile": false,
+            "size": 0,
+            "modifiedTime": 1559654368256,
+            "changeTime": 1559654368256,
+            "contentHash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "C:\\Users\\19705\\Documents\\SFExercises\\practice",
+        {
+            "state": "n",
+            "sourcePath": "C:\\Users\\19705\\Documents\\SFExercises\\practice",
+            "isDirectory": true,
+            "isMetadataFile": false,
+            "size": 0,
+            "modifiedTime": 1559656843102,
+            "changeTime": 1559656843102,
+            "contentHash": "3d48858a737ab8c39315eaf1c5149980d1a9cdae",
+            "isWorkspace": true,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app\\main\\default\\classes\\AccountTriggerHandler.cls-meta.xml",
+        {
+            "state": "u",
+            "sourcePath": "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app\\main\\default\\classes\\AccountTriggerHandler.cls-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 174,
+            "modifiedTime": 1559656971020,
+            "changeTime": 1559656971020,
+            "contentHash": "ab3ac94968e57930b88820ab5438fa820ed36730"
+        }
+    ],
+    [
+        "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app\\main\\default\\classes\\AccountTriggerHandler.cls",
+        {
+            "state": "u",
+            "sourcePath": "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app\\main\\default\\classes\\AccountTriggerHandler.cls",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 317,
+            "modifiedTime": 1559656971024,
+            "changeTime": 1559656971024,
+            "contentHash": "7b559e3a9e2375d856371aebcd0f61edaa1a0faf"
+        }
+    ],
+    [
+        "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app\\main\\default\\classes\\AccountTriggerTest.cls-meta.xml",
+        {
+            "state": "u",
+            "sourcePath": "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app\\main\\default\\classes\\AccountTriggerTest.cls-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 174,
+            "modifiedTime": 1559656971028,
+            "changeTime": 1559656971028,
+            "contentHash": "ab3ac94968e57930b88820ab5438fa820ed36730"
+        }
+    ],
+    [
+        "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app\\main\\default\\classes\\AccountTriggerTest.cls",
+        {
+            "state": "u",
+            "sourcePath": "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app\\main\\default\\classes\\AccountTriggerTest.cls",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 228,
+            "modifiedTime": 1559656971031,
+            "changeTime": 1559656971031,
+            "contentHash": "7c6c8a40d99d019e7e62840d5e27cc5b514f32da"
+        }
+    ],
+    [
+        "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app\\main\\default\\triggers\\AccountTrigger.trigger-meta.xml",
+        {
+            "state": "u",
+            "sourcePath": "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app\\main\\default\\triggers\\AccountTrigger.trigger-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 178,
+            "modifiedTime": 1559656971035,
+            "changeTime": 1559656971035,
+            "contentHash": "e08bfdd17c90adb2e94498511a98bfbad8efcf16"
+        }
+    ],
+    [
+        "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app\\main\\default\\triggers\\AccountTrigger.trigger",
+        {
+            "state": "u",
+            "sourcePath": "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app\\main\\default\\triggers\\AccountTrigger.trigger",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 192,
+            "modifiedTime": 1559656971037,
+            "changeTime": 1559656971037,
+            "contentHash": "d9814846a7eaf3befe36bd3ef1800f2acf137b70"
+        }
+    ],
+    [
+        "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app\\main\\default\\profiles\\Admin.profile-meta.xml",
+        {
+            "state": "u",
+            "sourcePath": "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app\\main\\default\\profiles\\Admin.profile-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 18834,
+            "modifiedTime": 1559656971066,
+            "changeTime": 1559656971066,
+            "contentHash": "2fd2f7562e0ab5b8c3870b3af1b0d2767a05acf0"
+        }
+    ],
+    [
+        "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app\\main\\default\\classes",
+        {
+            "state": "u",
+            "sourcePath": "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app\\main\\default\\classes",
+            "isDirectory": true,
+            "isMetadataFile": false,
+            "size": 0,
+            "modifiedTime": 1559656971030,
+            "changeTime": 1559656971030,
+            "contentHash": "ede930fa56fb917ef2995c189c00ea16059e539b"
+        }
+    ],
+    [
+        "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app\\main\\default\\triggers",
+        {
+            "state": "u",
+            "sourcePath": "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app\\main\\default\\triggers",
+            "isDirectory": true,
+            "isMetadataFile": false,
+            "size": 0,
+            "modifiedTime": 1559656971036,
+            "changeTime": 1559656971036,
+            "contentHash": "acc54750b3a2aad756c0864b40e1712786e9e0c1"
+        }
+    ],
+    [
+        "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app\\main\\default\\profiles",
+        {
+            "state": "u",
+            "sourcePath": "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app\\main\\default\\profiles",
+            "isDirectory": true,
+            "isMetadataFile": false,
+            "size": 0,
+            "modifiedTime": 1559656971063,
+            "changeTime": 1559656971063,
+            "contentHash": "dd4bc5d00d5b87ac9dcfa94ec543d354d095c25c"
+        }
+    ]
+]
