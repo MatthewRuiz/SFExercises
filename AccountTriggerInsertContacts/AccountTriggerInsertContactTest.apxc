@@ -7,9 +7,9 @@ public class AccountTriggerInsertContactTest {
         //Tests single action of what I do in the next test method since I wrote that one first
         
         Account a = new Account(Name='Test ' + 1);
+        insert a;
         //Test Begins
         test.startTest();
-        insert a;
         List<Contact> TestContacts = new List<Contact>([SELECT Id, LastName FROM Contact WHERE LastName LIKE 'Smith%']);
         test.stopTest();
         //Test Ends
@@ -25,9 +25,10 @@ public class AccountTriggerInsertContactTest {
             Account a = new Account(Name='Test ' + i);
             TestAccounts.add(a);
         }
+        insert TestAccounts;
+        
         //Test Begins
         test.startTest();
-        insert TestAccounts;
         List<Contact> TestContacts = new List<Contact>([SELECT Id, LastName FROM Contact WHERE LastName LIKE '%tooya%']);
         test.stopTest();
         //Test Ends
