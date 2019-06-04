@@ -47,11 +47,9 @@ public class AccountTriggerInsertContactTest {
                 Account a = new Account();
                 TestAccounts.add(a);
             }
-            //Test begins
-            test.startTest();
+            
             insert TestAccounts;
-            test.stopTest();
-            //Test Ends
+            
         }catch(DMLException dml){
             System.debug('The following exception has occurred: ' + dml.getMessage());
             Boolean expectedExceptionThrown;
