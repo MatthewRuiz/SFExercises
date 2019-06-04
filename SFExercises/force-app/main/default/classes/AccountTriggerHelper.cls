@@ -11,7 +11,8 @@ public class AccountTriggerHelper {
         for(Account acc: newContactAccounts){
             Contact newContact = new Contact();
             newContact.AccountId = acc.id;
-            newContact.LastName = Datetime.now().format();
+            newContact.FirstName = acc.Name;
+            newContact.LastName = 'Contact';
             newContact.MailingStreet = acc.ShippingStreet;
             newContact.MailingCity = acc.ShippingCity;
             newContact.MailingState = acc.ShippingState;
