@@ -7,3 +7,7 @@ System.debug([SELECT Name, Website FROM Account WHERE Website != null]);
 //list of all accounts with those name starting with z at the top
 System.debug([SELECT Name FROM Account ORDER BY Name DESC]);
 
+//query for all contacts on all accounts
+System.debug([SELECT Name, (SELECT Name FROM Contacts) FROM Account]);
+
+//
