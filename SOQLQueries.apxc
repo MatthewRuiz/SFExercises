@@ -15,7 +15,7 @@ public class PracticeSOQL {
         List<Account> accountsAndContacts = [SELECT Name, (SELECT Lastname FROM Contacts) FROM Account];
 
         //List displaying the number of Leads with the same 'Lead Source'
-        List<Lead> accountsWithContacts = [SELECT LeadSource FROM Lead GROUP BY];
+        List<Lead> accountsWithContacts = [SELECT LeadSource, Count(id) FROM Lead GROUP BY LeadSource];
 
     )
 
