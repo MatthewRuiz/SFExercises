@@ -1,0 +1,3 @@
+//all accounts with  520 area code 
+System.debug([SELECT Name FROM Account WHERE Phone LIKE '_520%']);
+
