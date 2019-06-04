@@ -1,0 +1,5 @@
+trigger AccountTrigger on Account (before insert, after insert) {
+    if(trigger.isInsert && trigger.isAfter){
+		AccountHelper.createContact(trigger.new);
+    }
+}
