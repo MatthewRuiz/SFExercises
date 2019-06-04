@@ -1,0 +1,22 @@
+public class PracticeSOQL {
+
+    
+    public static void queries{}(
+    	//All Accounts that have the 520 area code.
+        list<Account> accountsAreaCode = [SELECT Phone FROM Account WHERE Phone LIKE '_520%_'];
+
+        //All Accounts with a website
+        list<Account> accountsWithWebsite = [SELECT Website FROM Account WHERE Website !=NULL];
+
+        //List of Accounts with Accounts starting with z at the top and a at the bottom.
+        List<Account> accountsZtoA = [SELECT Name FROM Account ORDER BY Name DESC];
+
+        //List of Accounts and their related Contacts.
+        List<Account> accountsAndContacts = [SELECT Name, (SELECT Lastname FROM Contacts) FROM Account];
+
+        //List displaying the number of Leads with the same 'Lead Source'
+        List<Lead> accountsWithContacts = [SELECT LeadSource FROM Lead GROUP BY];
+
+    )
+
+}
