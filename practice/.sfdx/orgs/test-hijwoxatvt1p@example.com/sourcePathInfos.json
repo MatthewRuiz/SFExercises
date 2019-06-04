@@ -103,27 +103,27 @@
     [
         "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app\\main\\default\\classes\\AccountTriggerHandler.cls",
         {
+            "state": "u",
             "sourcePath": "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app\\main\\default\\classes\\AccountTriggerHandler.cls",
             "isDirectory": false,
-            "size": 317,
-            "modifiedTime": 1559656971024,
-            "changeTime": 1559656971024,
-            "contentHash": "7b559e3a9e2375d856371aebcd0f61edaa1a0faf",
             "isMetadataFile": false,
-            "state": "u"
+            "size": 688,
+            "modifiedTime": 1559661069143,
+            "changeTime": 1559661069143,
+            "contentHash": "36a76fdc202b77c10e3b4bd86b71a1e80695ce81"
         }
     ],
     [
         "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app\\main\\default\\classes\\AccountTriggerTest.cls-meta.xml",
         {
-            "state": "u",
             "sourcePath": "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app\\main\\default\\classes\\AccountTriggerTest.cls-meta.xml",
             "isDirectory": false,
-            "isMetadataFile": true,
             "size": 174,
             "modifiedTime": 1559657891347,
             "changeTime": 1559657891347,
-            "contentHash": "ab3ac94968e57930b88820ab5438fa820ed36730"
+            "contentHash": "ab3ac94968e57930b88820ab5438fa820ed36730",
+            "isMetadataFile": true,
+            "state": "u"
         }
     ],
     [
@@ -133,10 +133,10 @@
             "sourcePath": "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app\\main\\default\\classes\\AccountTriggerTest.cls",
             "isDirectory": false,
             "isMetadataFile": false,
-            "size": 789,
-            "modifiedTime": 1559657891353,
-            "changeTime": 1559657891353,
-            "contentHash": "ed727547f25870b9c91186391acc7dcc81ff7d0f"
+            "size": 2454,
+            "modifiedTime": 1559661069190,
+            "changeTime": 1559661069190,
+            "contentHash": "5526236198d3e40d60c7e37be47ab178286ff270"
         }
     ],
     [
@@ -184,7 +184,7 @@
             "sourcePath": "C:\\Users\\19705\\Documents\\SFExercises\\practice\\force-app\\main\\default\\classes",
             "isDirectory": true,
             "size": 0,
-            "modifiedTime": 1559656971030,
+            "modifiedTime": 1559657891350,
             "changeTime": 1559656971030,
             "contentHash": "ede930fa56fb917ef2995c189c00ea16059e539b",
             "isMetadataFile": false,
