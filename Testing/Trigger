@@ -1,0 +1,14 @@
+trigger ContactAssoAcco on Account (after insert) {
+    
+    if(Trigger.isInsert){
+    List<Contact> conList = new List<Contact>();
+    for(Account acc: Trigger.new){
+        Contact con = new Contact(LastName = acc.name,
+                                 AccountId = acc.Id);
+        conList.add(con);
+    }
+        insert conList;
+
+}
+}
+
