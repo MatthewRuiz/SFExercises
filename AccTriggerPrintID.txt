@@ -1,0 +1,10 @@
+trigger AccTrigger on Account (before insert) {
+
+    // Print ID before account is inserted 
+    if(Trigger.isBefore){
+        for(Account a : Trigger.new){
+	// Print ID before account is inserted 
+            system.debug('Account name: ' + a.Id);
+        }
+    }
+}
