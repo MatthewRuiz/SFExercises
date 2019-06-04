@@ -1,7 +1,9 @@
 @isTest
-public class AccountContacTriggerTest {
-    @isTest
+public class AccountContactTriggerTest {
+    // Utilize SeeAllData to SOQL data relevant data for comparison.
+    @isTest(SeeAllData = True)
     public static void testAccountContacTrigger() {
+        // creating test data
         List<Account> testAccount = new List<Account>();
         for (Integer i = 0; i < 10; i++) {
             testAccount.add(new Account(name='Speedwagon R&D Department ' + i));
@@ -10,13 +12,16 @@ public class AccountContacTriggerTest {
         insert testAccount;
         test.stopTest();
         
+        // Pull contact accountid with last name of trigger assigned contact to account
+        // Pull account id with name of test data assigned to account
         List<Contact> newContact = [SELECT Id, AccountId, FirstName FROM Contact WHERE LastName LIKE 'Speedwagon%'];
         List<Account> newAccount = [SELECT Id, name FROM Account WHERE name LIKE 'Speedwagon%' AND Id IN (SELECT AccountId FROM Contact)];
-        
-        for (Account a : newAccount) {
-            for (Contact c : newContact) {
-                System.assertEquals(a.Id, c.AccountId);
-            }
+		
+        // compare the two list
+        for (Integer i = 0; i < newContact.size(); i++) {
+            Contact thisContact = newContact[i];
+            Account thisAccount = newAccount[i];
+            System.assertEquals(thisContact.AccountId, thisAccount.Id);
         }
     }
 }
