@@ -1,7 +1,8 @@
-trigger AccountTrigger on Account (before insert) {
+trigger AccountTrigger on Account (before insert, after insert) {
     if(Trigger.isBefore && Trigger.isInsert){
-        for(Account acc: Trigger.new){
-           AccountTriggerHelper.printID(acc);
-        }
+        AccountTriggerHelper.printID(Trigger.new);
+    }
+    if(Trigger.isAfter&& Trigger.isInsert){
+        AccountTriggerHelper.createContact(Trigger.new);
     }
 }
