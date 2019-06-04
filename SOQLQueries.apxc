@@ -3,7 +3,7 @@ public class PracticeSOQL {
     
     public static void queries{}(
     	//All Accounts that have the 520 area code.
-        list<Account> accountsAreaCode = [SELECT Phone FROM Account WHERE Phone LIKE '_520%_'];
+        list<Account> accountsAreaCode = [SELECT Phone FROM Account WHERE Phone LIKE '(520)%'];
 
         //All Accounts with a website
         list<Account> accountsWithWebsite = [SELECT Website FROM Account WHERE Website !=NULL];

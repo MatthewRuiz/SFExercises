@@ -1,0 +1,18 @@
+trigger PracticeAccountTriggers on Account (after insert, before insert) {
+    //After an Account is inserted, create a contact that is associated with that Account.
+    if (Trigger.isAfter){
+        List<Contact> contactsToCreate;
+        for (Account a : Trigger.New){
+            Contact c = new Contact(lastName = a.Name, AccountId = a.Id);
+            contactsToCreate.add(c);
+        }
+        insert contactsToCreate;
+    }
+
+    //Create a trigger which prints out the ID of an Account before it is inserted.
+    if (Trigger.isBefore){
+        for (Account a:Trigger.New){
+            system.debug('AccountId:'+a.Id);
+        }
+    }
+}

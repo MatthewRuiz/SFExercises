@@ -1,0 +1,33 @@
+trigger PracticeContactTriggers on Contact (before insert, after insert, after update) {
+    
+    //Prevent duplicate Contacts from being created.
+    if (Trigger.isBefore && Trigger.isInsert){
+        List<Contact> existingContacts = [SELECT LastName FROM Contact];
+        Set<String> existingLastNames = new Set<String>();
+        for (Contact c: existingContacts){
+            existingLastNames.add(c.lastname);
+        }
+        for (Contact nc: Trigger.New){
+            if (existingLastNames.contains(nc.LastName)){
+                nc.addError('Contact Exists');
+            }
+        }
+    }
+    //############################todo
+    //Create a field on Account called "Primary Contact". 
+    //When a Contact is associated with an Account,
+    //assign it as the "Primary Contact" if there is not one.
+    if(Trigger.isUpdate){
+        Set<Id> AccountIds = new Set<Id>();
+        for (contact c: Trigger.New){
+            AccountIds.add(c.AccountId);
+        }
+        
+        List<Account> accountList = [SELECT Primary_Contact__c FROM Account
+                                     Where Id in :AccountIds AND Primary_Contact__c = NULL];
+        for (contact c: Trigger.New){
+            c.Account.Primary_Contact__c = c.Id;
+            
+        }
+    }
+}
