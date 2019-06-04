@@ -10,7 +10,12 @@ trigger AcctId on Account (after insert) {
             //set all id parentId of Contact to account id of new trigger
            	Contact c = new Contact();
             c.AccountId = acc.Id;
-            c.LastName = acc.Name;
+            c.LastName = 'Temporary';
+            c.MailingStreet = acc.ShippingStreet;
+            c.MailingCity = acc.ShippingCity;
+            c.MailingCountry = acc.ShippingCountry;
+            c.MailingState = acc.ShippingState;
+            c.MailingPostalCode = acc.ShippingPostalCode;
             lstCon.add(c);
         }
         insert lstCon;
