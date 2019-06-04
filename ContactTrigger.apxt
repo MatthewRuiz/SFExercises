@@ -13,21 +13,24 @@ trigger PracticeContactTriggers on Contact (before insert, after insert, after u
             }
         }
     }
-    //#############################todo
     //Create a field on Account called "Primary Contact". 
     //When a Contact is associated with an Account,
     //assign it as the "Primary Contact" if there is not one.
     if(Trigger.isUpdate){
         Set<Id> AccountIds = new Set<Id>();
+        Set<Id> ContactIds = new Set<Id>();
+        
+        List<Account> accountList = new List<Account>();
         for (contact c: Trigger.New){
             AccountIds.add(c.AccountId);
+            ContactIds.add(c.Id);
         }
-        
-        List<Account> accountList = [SELECT Primary_Contact__c FROM Account
-                                     Where Id in :AccountIds AND Primary_Contact__c = NULL];
-        for (contact c: Trigger.New){
+        List<Contact> contactList = [SELECT AccountId, Account.Primary_Contact__c FROM Contact
+                                     Where AccountId in :AccountIds AND Account.Primary_Contact__c = NULL AND Id in :ContactIds];
+        for (contact c: contactList){
             c.Account.Primary_Contact__c = c.Id;
-            
+            accountList.add(c.Account);                    
         }
+        update accountList;
     }
 }
