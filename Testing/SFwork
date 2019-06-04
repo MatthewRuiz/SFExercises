@@ -1,0 +1,12 @@
+public class ListingAccount {
+    
+    public static list<Account> listingAccounts(){
+     
+        List<Account> listing = [SELECT Name FROM Account ORDER BY Name Desc];
+        
+		system.debug(listing);
+        
+        return listing;
+    }
+
+}
