@@ -1,0 +1,47 @@
+public class DuplicateChecker {
+
+    public static void checkForContactDuplicates(List<contact> newContacts){
+        //step1: Extract Birthdate from new Contacts
+        List<Contact> FreshContacts = new List<Contact>();//List of all the new contacts that have a birthdate
+        set<Date> BirthdateSet = new Set<Date>();//Set of all the birthdates from the new contacts
+        for(contact newContact: newContacts){
+            if(newContact.Birthdate != null){
+                BirthdateSet.add(newContact.Birthdate);
+                FreshContacts.add(newContact);
+            } else {
+                newContact.addError('Contacts must have a Birthday!');
+            }
+        }
+        //Step2: find possible duplicate contacts from database
+        Map<Date, contact> existingContactMap = new Map<Date, Contact>();
+        for(Contact existingContact: [SELECT Id, FirstName, LastName, Birthdate 
+                        FROM Contact 
+                        WHERE Birthdate in :BirthdateSet]){
+            existingContactMap.put(existingContact.Birthdate, existingContact);
+        }
+        //Step3: compare and throw error
+        for(Contact newContact : FreshContacts){
+            Contact duplicateContact = existingContactMap.get(newContact.Birthdate);
+            //Check to see if another contact shares a birthday with the current contact
+            if(duplicateContact != null){
+                /*System.debug('duplicateContact Name: ' + duplicateContact.Name);
+                System.debug('newContact Name: ' + newContact.Name);
+                System.debug('The names are equal: ' + (duplicateContact.Name == newContact.Name));*/ 
+                if(duplicateContact.LastName == newContact.LastName && duplicateContact.FirstName == newContact.FirstName){ 
+                    //if birthday and name are the same throw error to prevent insertion into database
+                    newContact.addError('ERROR: There is already an Identical Record: ' + duplicateContact.Id);
+                    System.debug('added Error to contact');
+                }
+            }
+        }
+        //Step 4: check if same record is in the bulk input
+        for(Integer i=0; i<FreshContacts.size()-1; i++){
+            for(Integer j=i+1; j<FreshContacts.size(); j++){
+                if((FreshContacts[i].birthdate == FreshContacts[j].birthdate) && (FreshContacts[i].LastName == FreshContacts[j].LastName) && (FreshContacts[i].FirstName == FreshContacts[j].FirstName)){
+                    FreshContacts[i].addError('ERROR: There is already an Identical Record: In bulk without ID');
+                    FreshContacts[j].addError('ERROR: There is already an Identical Record: In bulk without ID');
+                }
+            }
+        }
+    }
+}

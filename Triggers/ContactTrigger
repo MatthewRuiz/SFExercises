@@ -1,0 +1,9 @@
+trigger ContactTrigger on Contact (before insert, after insert) {
+    //use trigger context to pinpoint trigger type
+    //This code was for another project on this org, i'm leaving it in so it doesn't break something else
+    if(Trigger.isAfter && Trigger.isInsert){
+       PostToChatterContact.postChatterContact(Trigger.new);
+    } else if (Trigger.isBefore && Trigger.isInsert){//This is what I wrote for the duplication check
+        DuplicateChecker.checkForContactDuplicates(Trigger.new);
+    }
+}

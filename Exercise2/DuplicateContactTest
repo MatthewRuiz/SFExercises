@@ -1,0 +1,94 @@
+@isTest
+public class DuplicateContactTest {
+
+    @testSetup
+    private static void createData(){
+        Contact dup = new Contact();
+        dup.LastName = 'Mario';
+        dup.Birthdate = date.newInstance(1985, 9, 13);
+        insert dup;
+    }
+    
+    @isTest
+    private static void testSinglePositive(){
+        Contact newContact = new Contact();
+        newContact.LastName = 'Luigi';
+        newContact.Birthdate = date.newInstance(1986, 9, 13);
+        insert newContact;
+        test.startTest();
+        List<Contact> foundContacts = [SELECT LastName, Birthdate
+                                       FROM Contact
+                                       WHERE LastName = 'Luigi'];
+        System.assertEquals(1, foundContacts.size());
+        System.assertEquals(date.newInstance(1986, 9, 13), foundContacts[0].Birthdate);
+        test.stopTest();
+    }
+    
+    @isTest
+    private static void testSingleNegative(){
+        //Create the same contact as the setup
+        Contact dup2 = new Contact();
+        dup2.LastName = 'Mario';
+        dup2.Birthdate = date.newInstance(1985, 9, 13);
+        boolean flag = false; //used to check if the record was correctly inserted
+        try{ //try to insert the duplicate record
+           insert dup2;  
+        } catch(DmlException E){
+            //make sure the insertion failed becuase it was a duplicate record and not for another reason
+            if(E.getMessage().contains('ERROR: There is already an Identical Record: ')){
+                flag = true;
+            }
+        } catch(Exception E){
+            
+        }
+        //Assert wether the trigger failed for the right reason or not. Also fails if the record is inserted
+        System.assert(flag);
+    }
+    
+    @isTest
+    private static void testBulkPositive(){
+        //Create 10 test contacts that have unique names and insert them into the database
+        List<Contact> newContacts = new List<Contact>();
+        Set<String> lastNames = new Set<String>();
+        for(integer i=0; i<10; i++){
+            Contact newContact = new Contact();
+            newContact.LastName = 'Test ' + i;
+            lastNames.add('Test ' + i);
+            newcontact.Birthdate = Date.today();
+            newContacts.add(newContact);
+        }
+        insert newContacts;
+        Test.startTest();
+        //Query for the contacts that were just inserted
+        List<Contact> foundContacts = [SELECT LastName, Birthdate
+                                       FROM Contact
+                                       WHERE LastName IN :lastNames];
+        //Make sure all 10 got inserted into the database
+        System.assertEquals(10, foundContacts.size());
+        Test.stopTest();
+    }
+    
+    @isTest
+    private static void testBulkNegative(){
+        //Create 10 test contacts that have the same name and try to insert them into the database
+        List<Contact> newContacts = new List<Contact>();
+        Set<String> lastNames = new Set<String>();
+        boolean flag = false;
+        for(integer i=0; i<10; i++){
+            Contact newContact = new Contact();
+            newContact.LastName = 'Test ';
+            lastNames.add('Test ');
+            newcontact.Birthdate = Date.today();
+            newContacts.add(newContact);
+        }
+        try{
+           insert newContacts; 
+        } catch(DmlException E){
+            //make sure the insertion failed becuase it was a duplicate record and not for another reason
+            if(E.getMessage().contains('ERROR: There is already an Identical Record: ')){
+                flag = true;
+            }
+        }
+        System.assert(flag);
+    }
+}
