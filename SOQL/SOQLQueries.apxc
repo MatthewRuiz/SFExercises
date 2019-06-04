@@ -3,3 +3,7 @@ System.debug([SELECT Name, Phone FROM Account WHERE Phone LIKE '_520%']);
 
 //select accounts where ther eis a website
 System.debug([SELECT Name, Website FROM Account WHERE Website != null]);
+
+//list of all accounts with those name starting with z at the top
+System.debug([SELECT Name FROM Account ORDER BY Name DESC]);
+
