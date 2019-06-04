@@ -1,0 +1,16 @@
+public class SOQLPractice {
+
+    public static List<Account> accounts520AreaCode(){
+    	// SOQL Accounts with 520 Area Code 
+    	List<Account> acc520Area = [SELECT Name, Phone FROM Account WHERE Phone LIKE '%520%']; 
+    	return acc520Area; 
+    }
+    
+    public static List<Account> accoutnsWithWebsite(){
+        // SOQL Account with website, query checks that field website is NOT null 
+        List<Account> accWithWebsite = [SELECT Name, Website FROM Account WHERE Website != null ]; 
+        return accWithWebsite; 
+    }
+    
+    
+}
