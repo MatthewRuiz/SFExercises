@@ -1,0 +1,24 @@
+public class AccountTriggerHelper {
+
+    //creates a new contact after an account is inserted
+    public static void createAssociatedContact(List<Account> accList){
+        List<Contact> contactsToInsert = new List<Contact>();
+        for(Account a: accList){
+            contactsToInsert.add(new Contact(FirstName=a.name, 
+                                             LastName='First Contact',
+                                             AccountId=a.Id));
+        }
+        insert contactsToInsert;
+    }
+    
+    //returns and debugs the name of an account before it is created
+    public static String[] returnDebugAccountName(List<Account> accList){
+        List<String> accountNameList = new List<String>();
+        for(Account a: accList){
+            System.debug(a.Name);
+            accountNameList.add(a.Name);
+        }
+        return accountNameList;
+    }
+
+}
