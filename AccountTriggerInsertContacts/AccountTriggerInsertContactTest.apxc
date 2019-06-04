@@ -1,0 +1,68 @@
+@isTest
+public class AccountTriggerInsertContactTest {
+    
+    
+    @isTest
+    public static void SingleActionTest(){
+        //Tests single action of what I do in the next test method since I wrote that one first
+        
+        Account a = new Account(Name='Test ' + 1);
+        //Test Begins
+        test.startTest();
+        insert a;
+        List<Contact> TestContacts = new List<Contact>([SELECT Id, LastName FROM Contact WHERE LastName LIKE 'Smith%']);
+        test.stopTest();
+        //Test Ends
+        System.assertEquals(1, TestContacts.size());
+    }
+    
+    
+    @isTest
+    public static void BulkPositive(){
+        //This method does bulk testing of the creation of contacts associated with the insertion of several accounts
+        List<Account> TestAccounts = new List<Account>();
+        for(Integer i = 0; i < 5; i++){
+            Account a = new Account(Name='Test ' + i);
+            TestAccounts.add(a);
+        }
+        //Test Begins
+        test.startTest();
+        insert TestAccounts;
+        List<Contact> TestContacts = new List<Contact>([SELECT Id, LastName FROM Contact WHERE LastName LIKE '%tooya%']);
+        test.stopTest();
+        //Test Ends
+        System.assertEquals(5, TestContacts.size());
+    }
+    
+    @isTest
+    public static void BulkNegative(){
+        //This method is supposed to test the catching of a DML exception, but yeah....
+        //The test passes, but the code coverage doesn't care and doesn't cover the one thing I have
+        //the "system.assertEquals" statement for.
+        try{
+            List<Account> TestAccounts = new List<Account>();
+            for(Integer i = 0; i < 5; i++){
+                //Intentionally providing nameless accounts that won't insert
+                Account a = new Account();
+                TestAccounts.add(a);
+            }
+            //Test begins
+            test.startTest();
+            insert TestAccounts;
+            test.stopTest();
+            //Test Ends
+        }catch(DMLException dml){
+            System.debug('The following exception has occurred: ' + dml.getMessage());
+            Boolean expectedExceptionThrown;
+            //If the DML message is not null, therefore there is a DML message and therefore the exception was thrown and caught
+            if(dml.getMessage() != null){
+                expectedExceptionThrown = true;
+            }else{
+                expectedExceptionThrown = false;
+            }
+            System.AssertEquals(true, expectedExceptionThrown);
+        }   
+        
+    }
+    
+}
