@@ -1,0 +1,8 @@
+<apex:page controller="vfcontroller" docType="html-5.0">
+    <form id = "idequals" method = "POST" action = "pagedos" style = "padding: 300px"> 
+        <input name = "inputforpage" value = "{!inputforpageuno}"/>
+            <button type = "Submit" >
+               Click Me
+        </button>
+    </form>
+</apex:page>

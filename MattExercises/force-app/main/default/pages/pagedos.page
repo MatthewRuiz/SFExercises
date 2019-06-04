@@ -1,0 +1,8 @@
+<apex:page controller="vfcontroller">
+    <form style = "padding: 300px">
+        <button type = "Submit" >
+               Click Me To Return Home
+        </button>
+        "{!$CurrentPage.parameters.inputforpage}"
+    </form>
+</apex:page>

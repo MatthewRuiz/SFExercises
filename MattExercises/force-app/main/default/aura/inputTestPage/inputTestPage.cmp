@@ -1,0 +1,6 @@
+<aura:component controller= "inputTestPageController">
+    <aura:attribute name= "BodyPartInput" type= "Body_Area__c" 
+    default= "{ 'sObjectType': 'Body__Area__c'} " />
+    <aura:handler name= "init" value= "{!this}" action= "{!c.doInit}" />
+    <force:inputField value= "{!v.Body_Area__c.Name}" />
+</aura:component>
