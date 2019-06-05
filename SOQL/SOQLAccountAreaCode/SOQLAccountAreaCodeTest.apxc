@@ -1,0 +1,10 @@
+@isTest
+public class SOQLAccountAreaCodeTest {
+    @isTest
+    public static void testSOQLAccountAreaCode() {
+        for (Account a : SOQLAccountAreaCode.thisSOQLAccountAreaCode()) {
+            System.assertEquals(a.Phone.subString(0, 3), '520');
+            System.debug(a.Phone.subString(0, 3));
+        }
+    }
+}

@@ -1,0 +1,7 @@
+public class SOQLAccountAreaCode {
+    public static List<Account> thisSOQLAccountAreaCode() {
+        // All Accounts that have the 520 area code in phone number.
+        List<Account> thisAccount = [SELECT Phone FROM Account WHERE Phone LIKE '520%'];
+        Return thisAccount;
+    }
+}
