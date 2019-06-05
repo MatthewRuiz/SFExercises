@@ -1,0 +1,8 @@
+public class SOQLAccountSort {
+    public static List<Account> thisSOQLAccountSort() {
+        // fetch soql and sort in descending order
+        List<Account> thisAccount = [SELECT name FROM Account ORDER BY name Desc];
+        
+        return thisAccount;
+    }
+}

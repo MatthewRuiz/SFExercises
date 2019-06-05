@@ -1,0 +1,12 @@
+@isTest
+public class SOQLAccountSortTest {
+	@isTest
+    // creating test value and comparing it with value returned from the sorted class
+    public static void testSOQLAccount() {
+       	List<Account> thisAccount = SOQLAccountSort.thisSOQLAccountSort();
+        List<Account> thatAccount = [SELECT name FROM Account ORDER BY name Desc];
+        for (Integer i = 0; i < thisAccount.size(); i++) {
+            System.assert(thisAccount[i] == thatAccount[i]);
+        }
+    }
+}
