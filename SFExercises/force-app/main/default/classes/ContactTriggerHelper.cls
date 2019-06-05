@@ -1,6 +1,6 @@
 public class ContactTriggerHelper {
     public static void verifyDuplicates(List<Contact> contactsToCheck){
-        List<Contact> allContacts = [SELECT Id, Name, Birthdate FROM Contact];
+        List<Contact> allContacts = [SELECT Id, FirstName, LastName, Birthdate FROM Contact];
         final String DUPLICATE_ERROR_MSG = 'Birthdate should be different for each Contact with the same Name';
 
 
@@ -24,14 +24,22 @@ public class ContactTriggerHelper {
     }
     //houses the logic that defines what a duplicate is, in this context.
     private static Boolean isDuplicate(Contact con1, Contact con2){
-        Boolean dupeNames = con1.Name == con2.Name;
-        Boolean dupeDates = con1.Birthdate == con2.Birthdate;
-        if(dupeDates){
-            System.debug(con1.Name+' and '+con2.Name+' - Duplicate Dates');
-            System.debug('con1='+con1.Birthdate+',con2='+con2.Birthdate);
-        }
+        Boolean dupeNames = (con1.FirstName == con2.FirstName)&&(con1.LastName == con2.LastName);
+        System.debug(con1.FirstName == con2.FirstName);
+        System.debug(con1.LastName == con2.LastName);
+        System.debug('dupeNames='+dupeNames);
+        Boolean dupeDates = (con1.Birthdate == con2.Birthdate);
+        System.debug('dupeDates='+dupeDates);
         if(dupeNames){
-            System.debug(con1.Name+' and '+con2.Name+' - Duplicate Name');
+            System.debug(con1.Name);
+            System.debug(con1.FirstName);
+            if(dupeDates){
+                System.debug(con1.Birthdate);
+            }
+        }
+        else if(dupeDates){
+            System.debug(con1.Birthdate);
+            System.debug(con1.FirstName+' '+con2.FirstName);
         }
         return dupeDates&&dupeNames;
     }
