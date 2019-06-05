@@ -1,0 +1,16 @@
+@isTest
+public class SOQLAccountContactTest {
+	@isTest
+    public static void testSOQLAccountContact() {
+        // create an instance of method's account and contact with an account id, assert them.
+        List<Account> thisAccount = SOQLAccountContact.thisSOQLAccountContact();
+        List<Contact> thisContact = [SELECT AccountId FROM Contact WHERE (AccountId != '' OR AccountId != null)];
+        
+        for (Integer i = 0; i < thisAccount.size(); i++) {
+            Account a = thisAccount[i];
+            Contact c = thisContact[i];
+            
+        	System.assertEquals(a.Id, c.AccountId);
+        }
+    }
+}

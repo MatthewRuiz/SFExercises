@@ -1,0 +1,14 @@
+public class SOQLAccountContact {
+    public static List<Account> thisSOQLAccountContact() {
+        // soql account and their relative contacts using a sub soql join
+        List<Contact> thisContact = [SELECT AccountId FROM Contact WHERE (AccountId != '' OR AccountId != null)];
+        List<Id> thisId = new List<Id>();
+        for (Contact c : thisContact) {
+            thisId.add(c.AccountId);
+        }
+        
+        List<Account> thisAccount = [SELECT Id, Name, (SELECT FirstName, LastName FROM Contacts) FROM Account WHERE Id IN: thisId];
+        
+        return thisAccount;
+    }
+}
