@@ -3,7 +3,7 @@ trigger PracticeOpportunityTriggers on Opportunity (before insert) {
 //When an opportunity is created with an "Expected Revenue" 
 //greater than $100,000.00, post to chatter informing the record owner.
 
-
+//
 
 
 //If an opportunity's "Expected Revenue" drops to $100,000 or below, 
