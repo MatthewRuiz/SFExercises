@@ -1,9 +1,18 @@
-trigger PracticeOpportunityTriggers on Opportunity (before insert) {
+trigger PracticeOpportunityTriggers on Opportunity (after insert, after update) {
 
 //When an opportunity is created with an "Expected Revenue" 
 //greater than $100,000.00, post to chatter informing the record owner.
-
-//
+	
+    if (Trigger.isInsert){
+        integer chatterAlertThreshold = 100000;
+        for (Opportunity o: Trigger.New){
+            if (o.ExpectedRevenue> chatterAlertThreshold){
+                ConnectApi.FeedElement feedElement = 
+                ConnectApi.ChatterFeeds.postFeedElement(null,
+                'me', ConnectApi.FeedElementType.FeedItem, o.Id +'informing the record owner');      
+            }   
+        }     
+    }
 
 
 //If an opportunity's "Expected Revenue" drops to $100,000 or below, 
