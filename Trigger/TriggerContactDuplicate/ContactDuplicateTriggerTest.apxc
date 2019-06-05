@@ -1,0 +1,35 @@
+@isTest
+public class ContactDuplicateTriggerTest {
+    @isTest
+    public static void testContactDuplicateTrigger() {
+        // ** positive test ** 
+        // creating new testing data for contact duplicate trigger
+        List<Contact> thisContact = new List<Contact>();
+        for (Integer i = 0; i < 10; i++) {
+            // odd and even assigner
+            Integer y = i/2;
+            Integer z = y*2;
+            If(z == i) {
+                thisContact.add(new Contact(FirstName = 'Even', LastName = 'Bobs', Birthdate = date.parse('10/22/1998').addDays(i)));
+            } else {
+                thisContact.add(new Contact(FirstName = 'Odd', LastName = 'Thomas', Birthdate = date.parse('11/23/1999').addDays(i)));
+            }
+        }
+        
+        // ** negative test **
+        List<Contact> thatContact = new List<Contact>();
+        for (Integer i = 0; i < 3; i++) {
+            thatContact.add(new Contact(FirstName = 'Duping the', LastName = 'Cho', Birthdate = date.parse('10/22/1998')));
+        }
+        
+        // see if any of the data throw an error
+        try {
+            test.startTest();
+        	insert thisContact;
+            insert thatContact;
+            test.stopTest();
+        } catch (Exception e) {
+            System.debug(e);
+        }
+    }
+}

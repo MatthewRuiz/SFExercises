@@ -1,0 +1,17 @@
+trigger ContactDuplicateTrigger on Contact (before insert) {
+    // Prevent duplicate Contacts from being created.
+    // For the 3rd, they can have the same name but their birthday should be different.
+    if (Trigger.isBefore && Trigger.isInsert) {
+        // Create a list of existing contact to compare
+        List<Contact> thisContact = [SELECT FirstName, LastName, Birthdate FROM Contact];
+        for (Contact c : Trigger.New) {
+            // validate any matching first name AND last name AND birthdate, then throw an error.
+            for (Contact dup : thisContact) {
+                if (c.FirstName == dup.FirstName && c.LastName == dup.LastName && c.Birthdate == dup.Birthdate) {
+                    c.Birthdate.addError('Duplicate Contact');
+                    System.debug('Duplicate Contact');
+                }
+            }
+        }
+    }
+}
