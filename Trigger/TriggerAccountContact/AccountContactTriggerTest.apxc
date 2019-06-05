@@ -6,7 +6,7 @@ public class AccountContactTriggerTest {
         // creating test data
         List<Account> testAccount = new List<Account>();
         for (Integer i = 0; i < 10; i++) {
-            testAccount.add(new Account(name='Speedwagon R&D Department ' + i));
+            testAccount.add(new Account(name='Speedwagon R&D Department ' + i, Phone = '321654987'));
         }
         test.startTest();
         insert testAccount;
@@ -14,14 +14,15 @@ public class AccountContactTriggerTest {
         
         // Pull contact accountid with last name of trigger assigned contact to account
         // Pull account id with name of test data assigned to account
-        List<Contact> newContact = [SELECT Id, AccountId, FirstName FROM Contact WHERE LastName LIKE 'Speedwagon%'];
-        List<Account> newAccount = [SELECT Id, name FROM Account WHERE name LIKE 'Speedwagon%' AND Id IN (SELECT AccountId FROM Contact)];
+        List<Contact> newContact = [SELECT Id, Phone, AccountId, FirstName FROM Contact WHERE LastName LIKE 'Temp'];
+        List<Account> newAccount = [SELECT Id, Phone, name FROM Account WHERE name LIKE 'Speedwagon%' AND Id IN (SELECT AccountId FROM Contact)];
 		
         // compare the two list
         for (Integer i = 0; i < newContact.size(); i++) {
             Contact thisContact = newContact[i];
             Account thisAccount = newAccount[i];
             System.assertEquals(thisContact.AccountId, thisAccount.Id);
+            System.assertEquals(thisContact.Phone, thisAccount.Phone);
         }
     }
 }

@@ -5,8 +5,8 @@ trigger AccountContactTrigger on Account (after insert) {
         for (Account a : Trigger.new) {
             Contact cont = new Contact();
             cont.AccountId = a.Id;
-            cont.FirstName = 'Robert E. O.';
-            cont.LastName = 'Speedwagon';
+            cont.LastName = 'Temp';
+            cont.Phone = a.Phone;
             newContact.add(cont);
         }
         
