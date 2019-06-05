@@ -1,0 +1,12 @@
+@isTest
+public class SOQLAccountWebsiteTest {
+    @isTest
+    public static void testSOQLAcountWebsite() {
+        // fetch the account and check if the they're null or blank
+        List<Account> thisAccount = SOQLAccountWebsite.thisSOQLAccountWebsite();
+        
+        for (Account a : thisAccount) {
+            System.assert(a.Website == '' || a.Website == null);
+        }
+    }
+}

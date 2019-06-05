@@ -1,0 +1,8 @@
+public class SOQLAccountWebsite {
+    public static List<Account> thisSOQLAccountWebsite() {
+        // create account to store website that's not null or blank
+        List<Account> thisAccount = [SELECT Website FROM Account WHERE Website != '' OR Website != null];
+        
+        return thisAccount;
+    }
+}
