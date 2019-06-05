@@ -1,0 +1,23 @@
+public class DisplayAccountsControllerExtension {
+    
+    public ApexPages.StandardSetController setController{get; set;}
+    
+    //List referenced by the Page Block table in the VFPage 
+    public List<Account> displayedAccounts {
+        get{
+            return setController.getRecords();
+        }
+        set;
+    }
+    
+    
+    //Constructor queries for the Account data to be displayed in the Page Block Table and sets the page size
+    public DisplayAccountsControllerExtension(ApexPages.StandardSetController ctrl){
+        
+      	setController = new ApexPages.StandardSetController([SELECT Name, NumberOfEmployees, ShippingState FROM Account]);
+             
+        setController.setPageSize(5);
+    }
+    
+   
+}

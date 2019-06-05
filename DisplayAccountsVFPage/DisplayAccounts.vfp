@@ -1,0 +1,22 @@
+<apex:page standardController="Account" recordSetVar="accounts" extensions="DisplayAccountsControllerExtension">
+    <apex:form >
+        <apex:pageBlock title="Accounts" id="accounts_list">
+            
+            <!-- Table of Accounts -->
+            <apex:pageBlockTable value="{!displayedAccounts}" var="acc">                
+                <apex:column value="{!acc.Name}"/>
+                <apex:column value="{!acc.NumberOfEmployees}"/>
+                <apex:column value="{!acc.ShippingState}" headerValue="State/Province"/>
+            </apex:pageBlockTable>
+            
+            <!-- Pagination Buttons -->
+            <div align="center">
+                <apex:panelGrid columns="2" >
+                    <apex:commandButton action="{!setController.previous}" value="Previous"/>
+                    <apex:commandButton action="{!setController.next}" value="Next"/>
+                </apex:panelGrid>
+            </div>
+            
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
