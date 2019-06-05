@@ -1,16 +1,12 @@
 <aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction,force:hasSObjectName" access="global" >
-    <aura:attribute name="recordId" type="String" />
-    <aura:attribute name="fields" type="String[]" default="Name"/>
+    <aura:attribute name="fields" type="String[]" default="['Name', 'ShippingAddress']"/>
     
     
-    <lightning:card title="Create Account" iconName="standard:Account">
+    <lightning:card title="Create Account" iconName="standard:account">
         <lightning:recordForm
-                              aura:id="recordViewForm" 
-                              recordId="{!v.recordId}"
-                              objectApiName="Account"                              
-                              layoutType="Compact"
-                              fields="{!v.fields}"
-                              columns="3"
+                              objectApiName="Account"
+                              fields="{!v.fields}"                              
+                              columns="2"
                               mode="edit">
             <lightning:messages />            
         </lightning:recordForm>
