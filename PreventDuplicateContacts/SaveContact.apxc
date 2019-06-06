@@ -1,0 +1,32 @@
+public class SaveContact {
+
+    //Before trigger checks validations prior to running an update
+    //Duplicate contact constitutes the same exact first name, last name,
+    //and date of birth as another record.
+    public static void saveContact(List<Contact> useContacts) {
+
+        Integer i = 0;
+        String eachError = '';
+        
+        try {
+            
+            for (Contact eachContact: [SELECT Id FROM Contact
+                                      WHERE FirstName = :useContacts[i].FirstName
+                                      AND LastName = :useContacts[i].LastName
+                                      AND Birthdate = :useContacts[i].Birthdate
+                                      ORDER BY CreatedDate DESC]) {
+                
+                if (useContacts[i].Birthdate != null) {
+
+                	eachError += 'Your contact has the same exact first name, last name, and birth date ';
+                	eachError += 'as another contact.  This is not allowed.';
+                   
+                	useContacts[i].addError(eachError);                    
+                }
+            }
+        } catch (DMLException e) {
+            
+            System.debug('Sorry, but your contact was not added due to the following reasons: ' + e.getMessage());
+        }
+    }
+}
