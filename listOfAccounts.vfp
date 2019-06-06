@@ -1,0 +1,17 @@
+<apex:page standardcontroller="account" recordSetVar="acc" extensions="pagNext">
+<apex:form >  
+<apex:pageBlock >
+     
+<apex:pageBlockTable value="{!acc}" var="a">
+    
+<apex:column value="{!a.Name}"/>
+<apex:column value="{!a.phone}"/>
+
+    
+</apex:pageBlockTable>
+        
+</apex:pageBlock>
+ <apex:commandButton action="{!next}" value="next" />
+    <apex:commandButton action="{!previous}" value="previous" />
+    </apex:form>
+</apex:page>
