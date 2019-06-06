@@ -1,0 +1,30 @@
+trigger TriggerAccountPrimaryContact on Contact (after insert, after update) {
+    // Create a field on Account called "Primary Contact". When a Contact is associated with an 
+    // Account, assign it as the "Primary Contact" if there is not one.
+    if (Trigger.isInsert && Trigger.isUpdate && Trigger.isAfter) {
+        // create contact list that has accountId, cross reference with account id, and store updated account
+        List<Contact> thisContact = [SELECT AccountId FROM Contact WHERE (AccountId != '' OR AccountId != null)];
+        List<Account> thisAccount = [SELECT Id FROM Account];
+        List<Account> thatAccount = new List<Account>();
+        
+        // logic for finding duplicate, if not found update account primary contact field
+        for (Contact t : Trigger.New) {
+            Integer dup = 0; // dup num holder
+            for (Contact c : thisContact) {
+                if (c.AccountId == t.AccountId) { dup =+ 1; }
+            }
+            
+            // if no dup update account with its associated contact
+            if (dup == 0) {
+                for (Account a : thisAccount) {
+                    if (a.Id == t.AccountId) {
+                        Account ThisA = new Account(Id = a.Id, Primary_Contact__c = t.Id);
+                        thatAccount.add(ThisA);
+                    }
+                } 
+            }
+        }
+        
+        Update thatAccount;
+    }
+}

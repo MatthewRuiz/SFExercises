@@ -1,0 +1,47 @@
+@isTest
+public class TriggerAccountPrimaryContactTest {
+    @isTest
+    public static void testTriggerAccountPrimaryContact() {
+        // Create a field on Account called "Primary Contact". When a Contact is associated with an 
+        // Account, assign it as the "Primary Contact" if there is not one.
+        
+        // positive test, add no dup
+        List<Account> thisAccount = new List<Account>();
+        for (Integer i = 0; i < 3; i++) {
+            Account a = new Account(name = 'Real Speedwagon Consultant HQ' + i);
+            thisAccount.add(a);
+        }
+        insert thisAccount;
+        
+        List<Contact> thisContact = new List<Contact>();
+        List<Account> thatAccount = [SELECT id, name FROM Account WHERE name LIKE 'Real Speedwagon%'];
+        for (Integer i = 0; i < 3; i++) {
+            Account a = thatAccount[i];
+            Contact c = new Contact(FirstName = 'Robert the ' + i, LastName = 'Speedwagon', AccountId = a.Id);
+            thisContact.add(c);
+        }
+        insert thisContact;
+        
+        // negative test, add dup
+        List<Account> dupAccount = new List<Account>();
+        for (Integer i = 0; i < 2; i++) {
+            Account a = new Account(name = 'Fake Speedwagon Consultant HQ' + i);
+            dupAccount.add(a);
+        }
+        insert dupAccount;
+        
+        List<Contact> dupContact = new List<Contact>();
+        thatAccount.clear();
+        thatAccount = [SELECT id, name FROM Account WHERE name LIKE 'Fake Speedwagon%' LIMIT 1];
+        for (Integer i = 0; i < 2; i++) {
+            Account a = thatAccount[0];
+            Contact c = new Contact(FirstName = 'Robert the ' + i, LastName = 'Speedwagon', AccountId = a.Id);
+            dupContact.add(c);
+        }
+        insert dupContact;
+        
+        // verify how many entry was inserted, should be 4, coz of 1 dup
+        List<Contact> checkContact = [SELECT LastName, AccountId FROM Contact WHERE LastName = 'Speedwagon'];
+        System.assert(checkContact.size() == 4);
+    }
+}
