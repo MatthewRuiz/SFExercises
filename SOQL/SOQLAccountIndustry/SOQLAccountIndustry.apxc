@@ -1,0 +1,8 @@
+public class SOQLAccountIndustry {
+    public static List<Account> thisSOQLAccountIndustry() {
+        // search any entry of account with industry of energy
+        List<Account> thisAccount = [SELECT Industry FROM Account WHERE Industry = 'Energy'];
+        
+        return thisAccount; 
+    }
+}

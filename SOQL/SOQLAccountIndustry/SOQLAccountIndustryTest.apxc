@@ -1,0 +1,15 @@
+@isTest
+public class SOQLAccountIndustryTest {
+	@isTest
+    public static void testSOQLAccountIndustry() {
+        // calling the method and creating a set of testing value for the testing value
+        List<Account> thisAccount = SOQLAccountIndustry.thisSOQLAccountIndustry();
+        List<Account> thatAccount = [SELECT Industry FROM Account WHERE Industry = 'Energy'];
+        
+        for (Integer i = 0; i < thisAccount.size(); i++) {
+            Account thisA = thisAccount[i];
+            Account thatA = thatAccount[i];
+            System.assert(thisA.Industry == thatA.Industry);
+        }
+    }
+}
