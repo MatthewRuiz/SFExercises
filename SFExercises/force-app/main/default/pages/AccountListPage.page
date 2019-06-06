@@ -1,0 +1,21 @@
+<apex:page controller="AccountListPageController">
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageBlockButtons >
+                <apex:outputPanel >
+                    <apex:commandButton value="Previous" action="{!setCon.previous}" rendered="{!setCon.hasPrevious}"/>
+                    <apex:commandButton value="Next" action="{!setCon.next}" rendered="{!setCon.hasNext}"/>
+                </apex:outputPanel>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection >
+                <apex:outputPanel >
+                	<apex:pageBlockTable var="acc" value="{!Accounts}">
+                        <apex:column headerValue="Account Name">
+                            <apex:outputField value="{!acc.Name}"/>
+                        </apex:column> 
+                    </apex:pageBlockTable>
+                </apex:outputPanel>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
