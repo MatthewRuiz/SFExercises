@@ -1,0 +1,92 @@
+@isTest
+public class SaveContactTest {
+
+    @testSetup static void insertTestRecords() {
+        
+        //Set up record list
+        List<Contact> contactsToInsert = new List<Contact>();
+        
+        Contact newContact = new Contact(FirstName = 'John', LastName = 'Doe', Birthdate = Date.valueOf('2019-06-06'));
+        
+        contactsToInsert.add(newContact);
+        
+        newContact = new Contact(FirstName = 'John', LastName = 'Smith', Birthdate = null);
+        
+        contactsToInsert.add(newContact);
+        
+        insert contactsToInsert;
+    }
+    
+    //Positive test
+    @isTest static void createContact() {
+        
+        String testMessage = '';
+        
+        try {
+            
+            Contact newContact = new Contact(FirstName = 'John', LastName = 'Smith', Birthdate = Date.valueOf('2019-06-06'));
+            
+            insert newContact;
+            
+            testMessage = 'records created';
+        } catch (DMLException e) {
+            
+            testMessage = e.getMessage();
+        }
+        
+        System.assertEquals('records created', testMessage);
+    }
+    
+    //Negative test
+    @isTest static void createContact2() {
+        
+        String testMessage = '';
+        String expectedResult = '';
+        
+        try {
+            
+            Contact newContact = new Contact(FirstName = 'John', LastName = 'Doe', Birthdate = Date.valueOf('2019-06-06'));
+            
+            insert newContact;
+            
+            testMessage = 'records created';
+        } catch (DMLException e) {
+            
+            testMessage = e.getMessage();
+        }
+        
+        expectedResult = 'Insert failed. First exception on row 0; first error: FIELD_CUSTOM_VALIDATION_EXCEPTION, ';
+        expectedResult += 'Your contact has the same exact first name, last name, and birth date as another contact.  ';
+        expectedResult += 'This is not allowed.: []';
+        
+        System.assertEquals(expectedResult, testMessage);
+    }
+	
+    //Positive test
+    @isTest static void updateContacts() {
+        
+        String testMessage = '';
+        List<Contact> contactsToUpdate = new List<Contact>();
+        
+        try {
+            
+            for (Contact eachContact: [SELECT FirstName, LastName, Birthdate FROM Contact ORDER BY CreatedDate DESC]) {
+                
+                eachContact.FirstName = 'Jane';
+                eachContact.FirstName = 'Doe';
+                eachContact.Birthdate = Date.valueOf('2019-06-06');
+                
+                contactsToUpdate.add(eachContact);
+            }
+            
+            update contactsToUpdate;
+            
+            testMessage = 'records updated';
+        } catch (DMLException e) {
+            
+            testMessage = e.getMessage();
+        }
+        
+        System.assertEquals('records updated', testMessage);
+    }
+}
