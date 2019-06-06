@@ -1,0 +1,27 @@
+<aura:component controller="AccountsController">
+    <aura:attribute name="accounts" type="List" />
+    <aura:attribute name="totalAccounts" type="Integer" />
+    <aura:attribute name="totalPages" type="Integer" />
+    <aura:attribute name="pageNumber" type="Integer" default="0"/>
+    <aura:attribute name="itemsPerPage" type="Integer" default="6" />
+    <aura:attribute name="nextDisabled" type="Boolean" />
+    <aura:attribute name="prevDisabled" type="Boolean" default="true" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <table class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout">
+        <tbody>
+            <!-- Use the Apex model and controller to fetch server side data -->
+            <aura:iteration items="{!v.accounts}" var="account">
+                <tr>
+                    <td><div class="slds-truncate" title="{!account.Name}">{!account.Name}</div></td>
+                    <td>
+                        <form class="account-form">
+                            <input type="hidden" value="{!account.Name}" class="account-name" />
+                        </form>
+                    </td>
+                </tr>
+            </aura:iteration>
+        </tbody>
+    </table>
+    <lightning:button label="Next" onclick="{!c.nextPage}" disabled="{!v.nextDisabled}"/>
+    <lightning:button label="Previous" onclick="{!c.prevPage}" disabled="{!v.prevDisabled}"/>
+</aura:component>

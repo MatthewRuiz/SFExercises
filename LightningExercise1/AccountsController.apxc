@@ -1,0 +1,14 @@
+public class AccountsController {
+    @AuraEnabled
+    public static List <Account> getAccounts(Integer theLimit, Integer pageNumber) {
+        pageNumber *= theLimit; //we want to start getting items after that many pages worth of records.
+        return [SELECT name FROM Account LIMIT :theLimit OFFSET :pageNumber];
+    }
+    
+    @AuraEnabled
+    public static Integer getTotalAccounts(){
+        //We need to total number of contacts so we query for an aggregate result and convert it into a string
+        //so it can be conterveted into an integer to be used by the lightning component
+        return Integer.valueOf(String.valueOf([SELECT count(Name) FROM Account][0]));
+    }
+}
