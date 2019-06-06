@@ -1,0 +1,14 @@
+trigger SaveContact on Contact (before insert, before update) {
+
+    //Validate an account before adding record.
+    if (Trigger.isBefore && Trigger.isInsert) {
+        
+        SaveContact.saveContact(Trigger.new);
+    }
+    
+    //Validate an account before saving changes
+    if (Trigger.isBefore && Trigger.isUpdate) {
+        
+        SaveContact.saveContact(Trigger.new);
+    }
+}
