@@ -1,0 +1,11 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" controller="ListOfAcctController">
+    <aura:attribute name="accts" type="Account[]"/>
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    
+    <div class="slds-box">
+        <aura:iteration items="{!v.accts}" var="acct">
+            <force:recordView recordId="{!acct.Id}" type="MINI"/>
+        </aura:iteration>
+    </div>
+    
+</aura:component>
