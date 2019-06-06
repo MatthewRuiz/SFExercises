@@ -10,12 +10,17 @@ public class SaveContact {
         
         try {
             
+            //Search entire list of contacts for a positive match.
+            //A duplicate first name, last name, and birthdate
+            //constites a positive match.
             for (Contact eachContact: [SELECT Id FROM Contact
                                       WHERE FirstName = :useContacts[i].FirstName
                                       AND LastName = :useContacts[i].LastName
                                       AND Birthdate = :useContacts[i].Birthdate
                                       ORDER BY CreatedDate DESC]) {
                 
+                //Upon finding a positive match, any combined duplicate
+                //birth dates confirms a duplicate account.
                 if (useContacts[i].Birthdate != null) {
 
                 	eachError += 'Your contact has the same exact first name, last name, and birth date ';
