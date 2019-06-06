@@ -1,0 +1,7 @@
+public class SOQLeadDupSource {
+    public static AggregateResult[] thisSOQLeadDupSource() {
+        AggregateResult[] thisLead = [SELECT Name, COUNT(LeadSource) FROM Lead GROUP BY Name];
+        
+        return thisLead;
+    }
+}

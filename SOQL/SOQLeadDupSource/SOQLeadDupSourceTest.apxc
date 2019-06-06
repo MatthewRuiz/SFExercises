@@ -1,0 +1,18 @@
+@isTest
+public class SOQLeadDupSourceTest {
+    @isTest
+    public static void testSOQLLeadDupSource() {
+        // created aggregated test data to check for name of leads 
+        // Step #1 to aggergate! SOQL aggregated result onto datatype AggregateResult[]
+        // Step #2 iterate it inside of standard int size loop, using non list AggregateResult to store
+        // Step #3 extract field from aggregateResult by utilizing aggregateresult.get('field');
+        AggregateResult[] thisLead = SOQLeadDupSource.thisSOQLeadDupSource();
+        AggregateResult[] thatLead = [SELECT name, COUNT(industry) FROM Lead GROUP BY name];
+        
+       	for (Integer i = 0; i < thisLead.size(); i++) {
+            AggregateResult thisL = thisLead[i];
+            AggregateResult thatL = thatLead[i];
+            System.assert(thisL.get('name') == thatL.get('name'));
+        }
+    }
+}
