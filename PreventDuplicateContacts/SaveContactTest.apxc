@@ -89,4 +89,38 @@ public class SaveContactTest {
         
         System.assertEquals('records updated', testMessage);
     }
+    
+    //Prevent duplicate contacts from being inserted
+    //before being compared against the Contact object
+    @isTest static void preventDuplicateContactInsert() {
+        
+        //Set up record list
+        List<Contact> contactsToInsert = new List<Contact>();
+        String testMessage = '';
+        String expectedOutput = '';
+        
+        try {
+            
+        	Contact newContact = new Contact(FirstName = 'Donald', LastName = 'Trump', Birthdate = Date.valueOf('1946-06-14'));
+        
+        	contactsToInsert.add(newContact);
+        
+        	newContact = new Contact(FirstName = 'Donald', LastName = 'Trump', Birthdate = Date.valueOf('1946-06-14'));
+        
+        	contactsToInsert.add(newContact);
+        
+        	insert contactsToInsert;
+            
+            testMessage = 'records created';
+        } catch (DMLException e) {
+            
+            testMessage = e.getMessage();
+        }
+        
+        expectedOutput = 'Insert failed. First exception on row 0; first error: FIELD_CUSTOM_VALIDATION_EXCEPTION, ';
+        expectedOutput += 'Your contact(s) has the same exact first name, last name, and birth date as another contact.  ';
+        expectedOutput += 'This is not allowed. : []';
+        
+        System.assertEquals(expectedOutput, testMessage);
+    }
 }
