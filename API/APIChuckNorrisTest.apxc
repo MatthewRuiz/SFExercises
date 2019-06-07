@@ -1,0 +1,17 @@
+@isTest
+public class APIChuckNorrisTest {
+	@isTest
+    public static void testAPIChuckNorris() {
+        // track callout limit to monitor successful callout
+        integer priorLimit, afterLimit;
+        priorLimit = Limits.getCallouts();
+        
+        String ThisCallout = APIChuckNorris.thisAPIChuckNorris();
+        afterLimit = Limits.getCallouts();
+        
+        System.assertNotEquals(priorLimit, afterLimit, 'An API cal was made');
+        System.debug(ThisCallout);
+        
+        // forgot you can't test callout
+    }
+}

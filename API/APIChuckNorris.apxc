@@ -3,7 +3,8 @@ public class APIChuckNorris {
         // {"categories":[],"created_at":"2016-05-01 10:51:41.584544",
         // "icon_url":"https://assets.chucknorris.host/img/avatar/chuck-norris.png",
         // "id":"xMgj2YKwRb-eWNbOv4DEfg","updated_at":"2016-05-01 10:51:41.584544",
-        // "url":"https://api.chucknorris.io/jokes/xMgj2YKwRb-eWNbOv4DEfg","value":"Chuck Norris can lift Thor's hammer, Mjolnir...with his pinkie."}
+        // "url":"https://api.chucknorris.io/jokes/xMgj2YKwRb-eWNbOv4DEfg",
+        // "value":"Chuck Norris can lift Thor's hammer, Mjolnir...with his pinkie."}
         
         Http http = new Http();
         HttpRequest request = new HttpRequest();
@@ -17,8 +18,8 @@ public class APIChuckNorris {
             // Cast the values in the 'animals' key as a list
             String value = (String) results.get('value');
             return value;
+        } else {
+            return 'An error has occured';
         }
-        
-        
     }
 }
