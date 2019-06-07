@@ -1,0 +1,12 @@
+<apex:page controller="OpportunityWizardController" tabStyle="Opportunity">
+    <apex:sectionHeader title="New Opportunity" subtitle="Step 2 of 3"/>
+    <apex:form >
+    <apex:pageBlock title="Pick a stage">
+        <apex:outputText value="Stage Name"/>
+        <apex:inputField value="{!Opportunity.StageName}"/>
+        <apex:pageBlockButtons >
+        <apex:commandButton action="{!page3}" value="Next"/>
+        </apex:pageBlockButtons>
+    </apex:pageBlock>
+     </apex:form>
+</apex:page>

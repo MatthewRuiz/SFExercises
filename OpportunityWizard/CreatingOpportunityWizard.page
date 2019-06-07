@@ -1,0 +1,20 @@
+<apex:page controller="OpportunityWizardController" tabStyle="Opportunity">
+    <apex:sectionHeader title="New Opportunity" subtitle="Step 1 of 3"/>
+    <apex:form >
+    <apex:pageBlock title="Enter Opportunity Name and Amount">
+        <div>
+         	<apex:outputText value="Opportunity Name"/>
+        	<apex:inputField value="{!Opportunity.Name}"/>  
+        </div>
+        <div>
+            <apex:outputText value="Opportunity Amount"/>
+            </div>
+        	<apex:inputField value="{!Opportunity.Amount}"/>
+        
+        
+       <apex:pageBlockButtons >
+        <apex:commandButton action="{!page2}" value="Next"/>
+	</apex:pageBlockButtons>    
+    </apex:pageBlock>
+        </apex:form>
+</apex:page>

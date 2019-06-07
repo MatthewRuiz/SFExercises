@@ -1,0 +1,12 @@
+<apex:page controller="OpportunityWizardController" tabStyle="Opportunity">
+    <apex:sectionHeader title="New Opportunity" subtitle="Step 3 of 3"/>
+    <apex:form >
+    <apex:pageBlock title="Select a Close Date">
+        <apex:outputText value="Close Date"/>
+        <apex:inputField value="{!Opportunity.CloseDate}"/>
+        <apex:pageBlockButtons >
+            <apex:commandButton action="{!finalPage}" value="Next"/>
+        </apex:pageBlockButtons>
+    </apex:pageBlock>
+    </apex:form>
+</apex:page>

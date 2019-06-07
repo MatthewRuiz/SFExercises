@@ -1,0 +1,27 @@
+<apex:page controller="OpportunityWizardController" tabStyle="Opportunity">
+    <style type="text/css">
+    	div.results{font-size: large;}
+    </style>
+    <apex:sectionHeader title="New Opportunity" subtitle="Summary"/>
+    <apex:form >
+    <apex:pageBlock title="Click save to create new opportunity">
+        <div class ="results">
+            <apex:outputText value="{!Opportunity.Name}"/>
+        </div>    
+        <div class ="results">
+            <apex:outputText value="{!Opportunity.Amount}"/>
+        </div>
+        	<div class ="results">
+                <apex:outputText value="{!Opportunity.StageName}"/>
+        </div>
+            <div class ="results">
+            <apex:outputText value="{!Opportunity.CloseDate}"/>    
+        </div>
+            
+        
+        <apex:pageBlockButtons >
+            <apex:commandButton value="Save" action="{!Save}"/>
+        </apex:pageBlockButtons>
+    </apex:pageBlock>
+    </apex:form>
+</apex:page>
