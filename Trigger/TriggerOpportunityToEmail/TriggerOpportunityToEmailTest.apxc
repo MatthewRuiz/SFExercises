@@ -1,0 +1,17 @@
+@isTest
+public class TriggerOpportunityToEmailTest {
+	@isTest
+    public static void testTriggerOpportunity() {
+        Integer priorEmailLimit = Limits.getEmailInvocations();
+        
+        List<Opportunity> thisOpportunity = new List<Opportunity>();
+        for (Integer i = 0; i < 3; i++) {
+            thisOpportunity.add(new Opportunity(Name = 'Pillar Man Campaign ' + i, amount = 90000, probability = 1.0));
+        }
+        test.startTest();
+        insert thisOpportunity;
+        test.stopTest();
+        
+        system.assertNotEquals(priorEmailLimit, Limits.getEmailInvocations());
+    }
+}

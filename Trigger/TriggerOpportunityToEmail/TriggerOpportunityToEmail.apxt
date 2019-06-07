@@ -1,0 +1,45 @@
+trigger TriggerOpportunityToEmail on Opportunity (before insert) {
+    // If an opportunity's "Expected Revenue" drops to $100,000 
+    // or below, notify the owner by sending an email.
+    if (Trigger.isBefore && Trigger.isInsert) {
+        // fetch opportunity with its ownerId and get user email with ownerId
+        List<Id> oppOwnerId = new List<Id>();
+        List<User> UserId = [SELECT Id FROM User];
+        String[] UserEmail;
+        
+        // fetch opportunity's owner id with expectedrevenu less than 100000
+        for (Opportunity opp : Trigger.New) {
+            if (opp.ExpectedRevenue < 100000) {
+                oppOwnerId.add(opp.OwnerId);
+            }
+        }
+        
+        // collect email of user with ownerId
+        for (User u : UserId) {
+            for (Id i : oppOwnerId) {
+                if (u.Id == i) {
+                    UserEmail.add(u.Email);
+                }
+            }
+        }
+        
+        // Set mailing limit to not hit government limit and create a mail, give it a To list for it.
+        // Assign the UserEmail for the To lists to the mail object.
+        Messaging.reserveSingleEmailCapacity(1);
+        Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
+        mail.setToAddresses(UserEmail);
+        
+        // Specify the name used as the display name.
+        mail.setSenderDisplayName('Salesforce Support System');
+        
+        // Specify the subject line for your email address.
+        mail.setSubject('Expected Revenue below 100k');
+        
+        // Specify the text content for both plain and html form of the email.
+        mail.setPlainTextBody('There was an opportunity with an expected Revenue below 100,000 entered in');
+        mail.setHtmlBody('<b>There was an opportunity with an expected Revenue below 100,000 entered in</b>');
+        
+        // Send the email you have created.
+        Messaging.sendEmail(new Messaging.SingleEmailMessage[] { mail });
+    }
+}
