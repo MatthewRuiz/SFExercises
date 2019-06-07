@@ -1,0 +1,24 @@
+public class APIChuckNorris {
+    public static String thisAPIChuckNorris() {
+        // {"categories":[],"created_at":"2016-05-01 10:51:41.584544",
+        // "icon_url":"https://assets.chucknorris.host/img/avatar/chuck-norris.png",
+        // "id":"xMgj2YKwRb-eWNbOv4DEfg","updated_at":"2016-05-01 10:51:41.584544",
+        // "url":"https://api.chucknorris.io/jokes/xMgj2YKwRb-eWNbOv4DEfg","value":"Chuck Norris can lift Thor's hammer, Mjolnir...with his pinkie."}
+        
+        Http http = new Http();
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint('https://api.chucknorris.io/jokes/random');
+        request.setMethod('GET');
+        HttpResponse response = http.send(request);
+        // If the request is successful, parse the JSON response.
+        if (response.getStatusCode() == 200) {
+            // Deserialize the JSON string into collections of primitive data types.
+            Map<String, Object> results = (Map<String, Object>) JSON.deserializeUntyped(response.getBody());
+            // Cast the values in the 'animals' key as a list
+            String value = (String) results.get('value');
+            return value;
+        }
+        
+        
+    }
+}
