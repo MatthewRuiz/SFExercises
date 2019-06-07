@@ -1,0 +1,22 @@
+@isTest
+public class FizzBuzzTest {
+	@isTest
+    public static void testFizzBuzz() {
+        for (integer i = 0; i < 100; i++) {
+            String result = FizzBuzz.calculate(i);
+            String assert;
+            
+            if (Math.mod(i, 3) == 0) {
+                assert = 'Fizz';
+            } else if (Math.mod(i, 5) == 0) {
+                assert = 'Buzz';
+            } else if (Math.mod(i, 5) == 0 && Math.mod(i, 3) == 0) {
+                assert = 'FizzBuzz';
+            } else {
+                assert = ''+i;
+            }
+            
+           	System.assert(result == assert);
+        }
+    }
+}
