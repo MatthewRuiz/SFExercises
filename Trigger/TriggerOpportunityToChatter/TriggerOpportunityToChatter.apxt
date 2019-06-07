@@ -1,0 +1,19 @@
+trigger TriggerOpportunityToChatter on Opportunity (before insert) {
+    // When an opportunity is created with an "Expected Revenue" greater 
+    // than $100,000.00, post to chatter informing the record owner.
+    if (Trigger.isBefore && Trigger.isInsert) {
+        // fetch opportunity 
+        List<FeedItem> thisPost = new List<FeedItem>();
+        
+        for (Opportunity opp : Trigger.New) {
+            if (opp.ExpectedRevenue > 100000) {
+                FeedItem post = new FeedItem();
+                post.ParentId = opp.OwnerId; 
+                post.Body = 'An Opportunity of Expected Revenue over $100,000.00 was created.';
+                thisPost.add(post);
+            }
+        }
+        
+        insert thisPost;
+    }
+}

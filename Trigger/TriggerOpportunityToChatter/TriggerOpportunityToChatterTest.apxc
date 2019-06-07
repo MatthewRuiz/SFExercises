@@ -1,0 +1,15 @@
+@isTest
+public class TriggerOpportunityToChatterTest {
+    @isTest
+    // When an opportunity is created with an "Expected Revenue" greater than 
+    // $100,000.00, post to chatter informing the record owner.
+    public static void testTriggerOpportunityToChatter() {
+        // add data that will create dummy opportunity
+        List<Opportunity> thisOpp = new List<Opportunity>();
+        for (Integer i = 0; i < 3; i++) {
+            Opportunity opp = new Opportunity(name = 'Speedwagon Outreach Outlet ' + i, amount = 100000, probability = 1.0);
+            thisOpp.add(opp);
+        }
+        insert thisOpp;
+    }
+}
