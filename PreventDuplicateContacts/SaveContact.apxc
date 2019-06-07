@@ -4,29 +4,51 @@ public class SaveContact {
     //Duplicate contact constitutes the same exact first name, last name,
     //and date of birth as another record.
     public static void saveContact(List<Contact> useContacts) {
-
-        Integer i = 0;
-        String eachError = '';
+        
+        String errorMessage = '';
+        
+        //Used for preventing duplicate contacts
+        //Concatenated first name, last name, and birthdate
+        //strings are processed into this set.
+        Set<String> contactInfoSet = new Set<String>();
         
         try {
             
-            //Search entire list of contacts for a positive match.
-            //A duplicate first name, last name, and birthdate
-            //constites a positive match.
-            for (Contact eachContact: [SELECT Id FROM Contact
-                                      WHERE FirstName = :useContacts[i].FirstName
-                                      AND LastName = :useContacts[i].LastName
-                                      AND Birthdate = :useContacts[i].Birthdate
-                                      ORDER BY CreatedDate DESC]) {
+            //Add each string concatenation to this set.
+            for (integer i = 0; i < useContacts.size(); i++) {
                 
-                //Upon finding a positive match, any combined duplicate
-                //birth dates confirms a duplicate account.
-                if (useContacts[i].Birthdate != null) {
+                contactInfoSet.add(useContacts[i].firstName + ' ' + useContacts[i].lastName + ' ' + useContacts[i].birthdate);
+            }
+            
+    		//If contact list and contact set are not the same
+    		//length at least one duplicate record has been detected.
+    		//No contacts will be saved if the contact list and contact
+    		//set are not the same length.
+            if (contactInfoSet.size() != useContacts.size()) {
+                
+                //This loop finds all duplicate unsaved contacts.
+                for (integer i = 0; i < useContacts.size(); i++) {
 
-                	eachError += 'Your contact has the same exact first name, last name, and birth date ';
-                	eachError += 'as another contact.  This is not allowed.';
+                    errorMessage = 'Your contact(s) has the same exact first name, last name, and birth date ';
+                	errorMessage += 'as another contact.  This is not allowed. ';
+                    useContacts[i].addError(errorMessage);  
+                }              
+            }
+            
+            //This loop compares for matching contact records, already stored in the object.
+            for (Contact eachContact: [SELECT FirstName, LastName, BirthDate FROM Contact ORDER BY CreatedDate DESC]) {
+                
+                for (integer i = 0; i < useContacts.size(); i++) {
+                    
+                	//Upon finding at least one positive match, no contacts will be saved.
+                	if (useContacts[i].FirstName == eachContact.FirstName && useContacts[i].LastName == eachContact.LastName
+                       && useContacts[i].Birthdate == eachContact.Birthdate) {
+
+                		errorMessage = 'Your contact(s) has the same exact first name, last name, and birth date ';
+                		errorMessage += 'as another contact.  This is not allowed. ';
                    
-                	useContacts[i].addError(eachError);                    
+                		useContacts[i].addError(errorMessage);
+                	}
                 }
             }
         } catch (DMLException e) {
