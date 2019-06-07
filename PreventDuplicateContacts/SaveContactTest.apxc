@@ -56,8 +56,8 @@ public class SaveContactTest {
         }
         
         expectedResult = 'Insert failed. First exception on row 0; first error: FIELD_CUSTOM_VALIDATION_EXCEPTION, ';
-        expectedResult += 'Your contact has the same exact first name, last name, and birth date as another contact.  ';
-        expectedResult += 'This is not allowed.: []';
+        expectedResult += 'Your contact(s) has the same exact first name, last name, and birth date as another contact.  ';
+        expectedResult += 'This is not allowed. : []';
         
         System.assertEquals(expectedResult, testMessage);
     }
