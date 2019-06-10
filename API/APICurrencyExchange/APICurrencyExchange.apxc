@@ -1,5 +1,6 @@
 public class APICurrencyExchange {
     public static void thisAPICurrencyExchange() {
+        // API FOR IMPLEMENT: https://rapidapi.com/fyhao/api/currency-exchange
         // create http, its request, and fill it on response
         Http https = new Http();
         HttpRequest request = new HttpRequest();
