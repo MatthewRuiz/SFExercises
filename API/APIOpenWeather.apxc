@@ -1,0 +1,41 @@
+public class APIOpenWeather {
+    public static void thisAPIOpenWeather() {
+        /* TEST THIS CODE USING THIS 
+        // use this instead and test in anonymous window	
+        integer priorLimit, afterLimit;
+        priorLimit = Limits.getCallouts();
+        
+        String ThisCallout = APIOpenWeather.thisAPIOpenWeather();
+        afterLimit = Limits.getCallouts();
+        
+		System.debug('Prior Limit: ' + priorLimit + ' After Limit: ' + afterLimit);
+        System.debug(ThisCallout);
+		*/
+        
+        // API FOR IMPLEMENT: https://rapidapi.com/community/api/open-weather-map
+        // create http, its request, and fill it on response
+        Http https = new Http();
+        HttpRequest request = new HttpRequest();
+        
+        // rapidapi require the end point for THAT get request, key and host in string, and request method.
+        request.setEndpoint('https://community-open-weather-map.p.rapidapi.com/weather?id=2172797&lang=en&units=imperial&mode=xml%2C+html&q=Reston%2CUS');
+        request.setHeader('X-RapidAPI-Host', 'community-open-weather-map.p.rapidapi.com');
+        request.setHeader('X-RapidAPI-Key', '434cf6a4b2msha2bb46c87ee0968p119897jsnccde9b0476a4');
+        request.setMethod('GET');
+
+        HttpResponse response = https.send(request);
+        
+        if (response.getStatusCode() == 200) {
+            // Deserialize the JSON string into collections of primitive data types.
+            // Ok, so this is was tricky, an array in an array in an array.
+            // Deserialize the response into a map, serialize it into a json, then deserialize it again.
+            Map<String, Object> results = (Map<String, Object>) JSON.deserializeUntyped(response.getBody());
+			List<Object> weather = (List<Object>) results.get('weather');
+            Map<String, Object> thisWeather = (Map<String, Object>) JSON.deserializeUntyped(JSON.serialize(weather[0]));
+            String description = (String) thisWeather.get('description');
+            System.debug(description);
+        } else {
+            System.debug(response.getStatus());
+        }
+    }
+}
