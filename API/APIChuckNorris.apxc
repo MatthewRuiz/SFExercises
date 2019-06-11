@@ -1,11 +1,19 @@
 public class APIChuckNorris {
     public static String thisAPIChuckNorris() {
-        // {"categories":[],"created_at":"2016-05-01 10:51:41.584544",
-        // "icon_url":"https://assets.chucknorris.host/img/avatar/chuck-norris.png",
-        // "id":"xMgj2YKwRb-eWNbOv4DEfg","updated_at":"2016-05-01 10:51:41.584544",
-        // "url":"https://api.chucknorris.io/jokes/xMgj2YKwRb-eWNbOv4DEfg",
-        // "value":"Chuck Norris can lift Thor's hammer, Mjolnir...with his pinkie."}
+        /* TEST THIS CODE USING THIS 
+        // use this instead and test in anonymous window	
+        integer priorLimit, afterLimit;
+        priorLimit = Limits.getCallouts();
         
+        String ThisCallout = APIChuckNorris.thisAPIChuckNorris();
+        afterLimit = Limits.getCallouts();
+        
+        System.debug('Prior Limit: ' + priorLimit + ' After Limit: ' + afterLimit);
+        System.debug(ThisCallout);
+        */
+        
+        // API FOR IMPLEMENT: https://api.chucknorris.io/
+
         Http http = new Http();
         HttpRequest request = new HttpRequest();
         request.setEndpoint('https://api.chucknorris.io/jokes/random');
@@ -19,7 +27,7 @@ public class APIChuckNorris {
             String value = (String) results.get('value');
             return value;
         } else {
-            return 'An error has occured';
+            return response.getStatus();
         }
     }
 }
