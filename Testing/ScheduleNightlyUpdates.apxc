@@ -1,0 +1,7 @@
+public class ScheduleNightlyUpdates implements Schedulable{
+    
+    public static void execute(SchedulableContext ctx){
+        Database.executeBatch(new NightlyUpdate(), 200);
+    }
+
+}

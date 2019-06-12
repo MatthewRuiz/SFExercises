@@ -1,0 +1,63 @@
+@isTest
+public class NightlyUpdateTest {
+    
+    @testSetup
+    public static void createRecords(){
+        List<Account> accList = new List<Account>();
+        List<Contact> conList = new List<Contact>();
+        for(Integer i = 0; i < 500; i ++){
+            accList.add(new Account(name='acc'+i));
+            conList.add(new Contact(LastName='con'+i));
+        }
+        insert conList;
+        insert accList;
+    }
+    
+    @istest
+    public static void testOne(){
+        System.assert([SELECT Id FROM Account WHERE Update__c = false].size() == 500);
+        System.assert([SELECT Id FROM Contact WHERE Update__c = false].size() == 500);
+        insert new Update_Objects__c(Objects__c = 'Account, Contact');
+        User u = new User(ProfileId='00e4P000001WUFdQAO', 
+                          LastName='DOS', 
+                          UserName='Daultonoryan@gmail.com87', 
+                          Email='Daultonoryan@gmail.com', 
+                          Alias='dos87', 
+                          TimeZoneSidKey='America/Los_Angeles', 
+                          EmailEncodingKey='ISO-8859-1', 
+                          LanguageLocaleKey='en_US',
+                          LocaleSidKey='af_ZA');
+        System.runAs(u){
+            Test.startTest();
+        	Database.executeBatch(new NightlyUpdate(), 1000);
+        	Test.stopTest();
+        }
+        System.assert([SELECT Id FROM Account WHERE Update__c = true].size() == 500);
+        System.assert([SELECT Id FROM Contact WHERE Update__c = true].size() == 500);
+    }
+    
+    @isTest
+    public static void testTwo(){
+        System.assert([SELECT Id FROM Account WHERE Update__c = false].size() == 500);
+        System.assert([SELECT Id FROM Contact WHERE Update__c = false].size() == 500);
+        insert new Update_Objects__c(Objects__c = 'Account, Contract');
+        User u = new User(ProfileId='00e4P000001WUFdQAO', 
+                          LastName='DOS', 
+                          UserName='Daultonoryan@gmail.com87', 
+                          Email='Daultonoryan@gmail.com', 
+                          Alias='dos87', 
+                          TimeZoneSidKey='America/Los_Angeles', 
+                          EmailEncodingKey='ISO-8859-1', 
+                          LanguageLocaleKey='en_US',
+                          LocaleSidKey='af_ZA');
+        System.runAs(u){
+            Test.startTest();
+        	Database.executeBatch(new NightlyUpdate(), 1000);
+        	Test.stopTest();
+        }
+        System.assert([SELECT Id FROM Contact WHERE Update__c = true].size() == 0);
+        System.assert([SELECT Id FROM Contact WHERE Update__c = false].size() == 500);
+        System.assert([SELECT Id FROM Account WHERE Update__c = true].size() == 500);
+    }
+
+}

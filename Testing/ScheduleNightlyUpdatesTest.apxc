@@ -1,0 +1,38 @@
+@isTest
+public class ScheduleNightlyUpdatesTest {
+    
+    @testSetup
+    public static void createRecords(){
+        List<Account> accList = new List<Account>();
+        List<Contact> conList = new List<Contact>();
+        for(Integer i = 0; i < 100; i ++){
+            accList.add(new Account(name='acc'+i));
+            conList.add(new Contact(LastName='con'+i));
+        }
+        insert conList;
+        insert accList;
+        insert new Update_Objects__c(Objects__c = 'Account, Contact');
+    }
+    
+    @isTest public static void testScheduler(){
+        String cron = '0 0 18 1/1 * ? *';
+        Integer currBatches = (Integer)[SELECT COUNT(Id) total FROM AsyncApexJob].get(0).get('total');
+        System.debug(currBatches);
+        User u = new User(ProfileId='00e4P000001WUFdQAO', 
+                          LastName='DOS', 
+                          UserName='Daultonoryan@gmail.com87', 
+                          Email='Daultonoryan@gmail.com', 
+                          Alias='dos87', 
+                          TimeZoneSidKey='America/Los_Angeles', 
+                          EmailEncodingKey='ISO-8859-1', 
+                          LanguageLocaleKey='en_US',
+                          LocaleSidKey='af_ZA');
+        System.runAs(u){
+            Test.startTest();
+        	System.schedule('schedule test', cron, new ScheduleNightlyUpdates());
+        	Test.stopTest();
+        }
+        System.assertEquals((Integer)[SELECT COUNT(Id) total FROM AsyncApexJob].get(0).get('total'), 2);
+    }
+
+}

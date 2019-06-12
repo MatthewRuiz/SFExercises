@@ -1,0 +1,50 @@
+public class NightlyUpdate implements Database.batchable<SObject> {
+    
+    public List<sObject> start(Database.BatchableContext ctx){
+        system.debug(Update_Objects__c.getInstance(UserInfo.getProfileId()).Objects__c);
+        List<String> objsToIt = Update_Objects__c.getInstance(UserInfo.getProfileId()).Objects__c.split(', ');
+        List<sObject> objProcessing = new List<sObject>();
+        for(String s: objsToIt){
+            try{
+                List<sObject> objs = Database.query('SELECT Update__c FROM ' + s);
+            	objProcessing.addAll(objs); 
+            }catch(System.QueryException e){
+                
+                System.debug('you attempted to query an unsupported sObject ensure that the object has a field Update__c that is a checkbox');
+            }
+            
+        }
+        return objProcessing;
+    }
+    
+    public void execute(Database.BatchableContext ctx, List<sObject> objs){
+        Set<Schema.SObjectType> objsQueried = new Set<Schema.SObjectType>();
+        for(String s: Update_Objects__c.getInstance(UserInfo.getProfileId()).Objects__c.split(', ')){
+            try{
+                sObject tempObj = Database.query('SELECT Update__c FROM ' + s + ' LIMIT 1');
+                objsQueried.add(tempObj.getSObjectType());
+            }catch(System.QueryException e){
+                System.debug('no field Update__c on ' + s);
+                System.debug(e.getMessage());
+            }
+            
+            
+        }
+        for(sObject s: objs){
+            if(s.getSObjectType() == Schema.Account.getSObjectType()){
+                Account acc = (Account)s;
+                acc.Update__c = !acc.Update__c;
+                s = acc;
+            }else if(s.getSObjectType() == Schema.Contact.getSObjectType()){
+                Contact con = (Contact)s;
+                con.Update__c = !con.Update__c;
+                s = con;
+            }
+        }
+		update objs;    
+    }
+    
+    public void finish(database.BatchableContext ctx){
+        
+    }
+}
