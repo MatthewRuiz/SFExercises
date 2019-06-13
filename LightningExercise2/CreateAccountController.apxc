@@ -1,0 +1,60 @@
+public class CreateAccountController {
+    
+    public static List<Contact> conactsByState;
+    public static boolean contactsLoaded = false;
+    
+    @auraEnabled
+    public static Id newAccountDB(String accName, String state, List<Contact> contacts){
+        System.debug('got into server side controller');
+        //check if user can create Accounts
+        if(!schema.SObjectType.Account.isCreateable()){
+            //pass error to client
+            throw new AuraHandledException('You cannot create Accounts!');
+        }
+        //create the account
+        Account accountObj = new Account();
+        accountObj.name = accName;
+        accountObj.ShippingState = state;
+        accountObj.BillingState = state;
+        //try to insert it into the database and add contacts to that account
+        try {
+            insert accountObj;
+            system.debug('inserted account');
+            for(Contact cont: contacts){
+                cont.AccountId = accountObj.id;
+            }
+            update contacts;
+            system.debug('updated contact');
+        } catch (Exception E){
+            System.debug('An error has occurred: ' + E.getMessage());
+        }
+        //return the id of the account so the user can be directed to the detail page
+        return accountObj.Id;
+    }
+    
+    //loads all contacts in the database and store them on server side so they don't need
+    //to be queried repeatly
+    private static List<Contact> loadContacts(){
+        if(!contactsLoaded){
+        	conactsByState = [SELECT Name, Id, MailingState
+                              FROM Contact];
+            contactsLoaded = true;
+        }
+        return conactsByState;
+    }
+    
+    //filter the contacts to only those from the specified state and pass to client side controller
+    @auraEnabled
+    public static List<Contact> getContacts(String state){
+        List<Contact> allContacts = loadContacts(); //master list of contacts
+        List<Contact> stateContacts = new List<Contact>(); //only the contacts in the specified state
+        //System.debug('State is: ' + state);
+        for(Contact cont : allContacts){
+            //system.debug('mailingState: ' + cont.MailingState);
+            if(cont.MailingState == state){
+                stateContacts.add(cont);
+            }
+        }
+        return stateContacts;
+    }
+}

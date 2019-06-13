@@ -1,0 +1,43 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:apphostable" access="global" controller="CreateAccountController">
+    <aura:attribute name="NewAccount" type="Account" default="{ 'sobjectType' : 'Account' }" />
+    <aura:attribute name="AccountName" type="String" />
+    <aura:attribute name="AccountState" type="String" />
+    <aura:attribute name="ContactsInState" type="List" />
+    <aura:attribute name="SelectedContacts" type="List" />
+    <aura:attribute name="disableList" type="Boolean" default="true"/>
+    
+    <lightning:card iconName="standard:Account" title="Create Account">
+        <div class="slds-form--stacked">
+            <div class="slds-form-element">
+                <label class="slds-form-element__label">Account Name: </label>
+                <div class="slds-form-element__control">
+                    <ui:inputText class="slds-input" value="{!v.AccountName}" required="true" />
+                </div>
+            </div>
+            <div class="slds-form-element">
+                <label class="slds-form-element__label">Account State: </label>
+                <div class="slds-form-element__control">
+                	<ui:inputText class="slds-input" value="{!v.AccountState}" required="true" />
+                </div>
+            </div> 
+            <div class="slds-form-element">
+                <lightning:button variant="brand" label="Load Contacts" onclick="{!c.loadContacts}" />
+            </div>
+            <div class="slds-form-element">
+                <div class="slds-form-element__control">
+                	<lightning:select aura:id="ContactSelect" name="select" label="Select a Contact" disabled="v.disableList">
+                    	<aura:iteration items="{!v.ContactsInState}" var="contact">
+                            <option text="{!contact.Name}"></option>
+                        </aura:iteration>
+                    </lightning:select> 
+                   <!-- <lightning:combobox aura:id="ContactSelect" label="Contacts" placeholder="Select a contact" options="{!v.ContactsInState}" /> 
+                	-->
+				</div>
+            </div> 
+            <div class="slds-form-element">
+                <lightning:button variant="brand" label="Add Contact" onclick="{!c.addContact}" />
+                <lightning:button variant="brand" label="Save Account" onclick="{!c.saveAccount}" />
+            </div>
+        </div>
+    </lightning:card>
+</aura:component>
