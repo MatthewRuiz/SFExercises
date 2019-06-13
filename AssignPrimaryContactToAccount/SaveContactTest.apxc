@@ -1,0 +1,48 @@
+@isTest
+public class SaveContactTest {
+    
+    //If an account does not have a primary contact
+    //give it one.
+    @isTest static void assignAccountPrimaryContact() {
+        
+        String testMessage = '';
+        
+        try {
+            
+            //Insert account
+        	Account newAccount = new Account(Name = 'Test name', BillingStreet = 'Test street', BillingCity = 'Test city',
+                                         BillingState = 'Test state', BillingPostalCode = '10000',
+                                         BillingCountry = 'Test country', ShippingStreet = 'Test street',
+                                         ShippingCity = 'Test city', ShippingState = 'Test state',
+                                         ShippingPostalCode = '10000', ShippingCountry = 'Test country', Phone = 'none');
+            
+            insert newAccount;
+            
+            //Get account Id
+            Account thisAccount = [SELECT Id FROM Account LIMIT 1];
+            
+            //Insert contact
+            Contact newContact = new Contact(FirstName = 'Test first name', LastName = 'Test last name',
+                                            AccountId = thisAccount.Id);
+            
+            insert newContact;
+            
+            //Get account with possible primary contact assignment
+            Account primaryContactAccount = [SELECT PrimaryContact__c FROM Account LIMIT 1];
+            
+            //Check if primary contact got assigned
+            if (primaryContactAccount.PrimaryContact__c == 'Test first name Test last name') {
+                
+                testMessage = 'primary contact assigned to account';
+            } else {
+                
+                testMessage = 'primary contact not assigned to account';
+            }
+        } catch (DMLException e) {
+            
+            testMessage = e.getMessage();
+        }
+        
+        System.assertEquals('primary contact assigned to account', testMessage);
+    }
+}
