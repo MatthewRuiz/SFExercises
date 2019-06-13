@@ -1,0 +1,10 @@
+trigger SaveContact on Contact (after insert) {
+
+    //When a contact is created for a related account (no related contacts exist)
+    //that account will be assigned a primary contact.  Subsequent
+    //contact creations will not update the primary contact.
+    if (Trigger.isAfter && Trigger.isInsert) {
+        
+        SaveContact.saveAccount(Trigger.new);
+    }
+}
