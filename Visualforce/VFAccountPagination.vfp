@@ -1,0 +1,18 @@
+<apex:page controller="VFAccountPaginationController" action="{!init}">
+    <!-- "Create a VF page that displays a list of Accounts. - This list should display 5 records per page." -->
+    <apex:form >
+        <apex:pageBlock id="account-container">
+            <apex:pageBlockTable value="{!accounts}" var="account" rows="8">
+                <apex:column value="{!account.name }"/>
+                <apex:column value="{!account.industry }"/>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+        <apex:pageBlock >
+            <apex:outputLabel value="Previous" rendered="{!NOT(hasPrevious)}" /> &nbsp;
+            <apex:commandLink action="{!previous}" value="Previous" rendered="{!hasPrevious}" /> &nbsp;
+            <apex:outputLabel value="Page {!pageNumber}" /> &nbsp;
+            <apex:outputLabel value="Next" rendered="{!NOT(hasNext)}" /> &nbsp;
+            <apex:commandLink action="{!next}" value="Next" rendered="{!hasNext}" /> &nbsp;
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,53 @@
+public class VFAccountPaginationController {
+    // In order to setup pagination, you need to create the standardsetcontroller,
+    // create method that take setcontroller class's 5 method.
+    // - previous, next, gethasprevious, gethasnext, getpageNumber.
+    // Afterward, query initial record to the setcontroller and record per row.
+    // Pass setcontroller records onto a list method for datatable.
+    // The disabling of previous and next is for disabling those button when limit reach.
+    // the getPageNumber is for passing the page number to the output label on vfpage
+    
+    // Instantiate the StandardSetController
+    public ApexPages.StandardSetController setCon{get; set;}
+    
+    // Previous and next
+    public void previous() {
+        setCon.previous();
+    }
+    
+    public void next() {
+        setCon.next();
+    }
+    
+    // return boolean for hasNext and hasPrevious
+    public Boolean hasNext {
+        get { return setCon.getHasNext(); } set;
+    }
+    
+    public Boolean hasPrevious {
+        get { return setCon.getHasPrevious(); } set;
+    }
+    
+    // return int for number of pages
+    public Integer pageNumber {
+        get { return setCon.getPageNumber(); } set;
+    }
+    
+    // initialize datatable and its page size.
+    public void init() {
+        setCon = new ApexPages.StandardSetController(
+            Database.getQueryLocator(
+                [SELECT name, industry FROM Account]
+            )
+        );
+        
+        // sets the number of records in each page set
+        setCon.setPageSize(5);
+    }
+    
+    // return the record fron the setController as records
+    public List<Account> getAccounts() {
+        List<Account> thisAccount = (List<account>) setCon.getRecords();
+        return thisAccount;
+    }
+}
