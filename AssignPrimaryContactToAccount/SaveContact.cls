@@ -6,16 +6,16 @@ public class SaveContact {
     public static void saveAccount(List<Contact> useContacts) {
         
         List<Account> accountsToUpdate = new List<Account>();
+        Id Id = null;
         String accountId = '';
-        String name = '';
         
         try {
             
             //Find associated contact first name and last name.
             for (Contact eachContact: useContacts) {
                 
+                Id = eachContact.Id;
                 accountId = eachContact.AccountId;
-                name = eachContact.FirstName + ' ' + eachContact.LastName;
             }
             
             //Find associated account to assign the first name and last name to.
@@ -24,7 +24,7 @@ public class SaveContact {
                 //If account already has a primary contact leave the primary contact as is.
                 if (eachAccount.PrimaryContact__c == null) {
                     
-                	eachAccount.PrimaryContact__c = name;
+                	eachAccount.PrimaryContact__c = Id;
                 
                 	accountsToUpdate.add(eachAccount);
                 }
