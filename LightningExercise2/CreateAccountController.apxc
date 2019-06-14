@@ -4,8 +4,8 @@ public class CreateAccountController {
     public static boolean contactsLoaded = false;
     
     @auraEnabled
-    public static Id newAccountDB(String accName, String state, List<Contact> contacts){
-        System.debug('got into server side controller');
+    public static Id newAccountDB(String accName, String state, String contactsNames){
+        System.debug('the contact names are: ' + contactsNames);
         //check if user can create Accounts
         if(!schema.SObjectType.Account.isCreateable()){
             //pass error to client
@@ -20,11 +20,14 @@ public class CreateAccountController {
         try {
             insert accountObj;
             system.debug('inserted account');
+            List<String> names = generateNames(contactsNames);
+            List<Contact> contacts = getContactsByName(names);
+            //update all the contacts to reference this account as the account they belong to
             for(Contact cont: contacts){
+                system.debug('contact is: ' + cont);
                 cont.AccountId = accountObj.id;
             }
             update contacts;
-            system.debug('updated contact');
         } catch (Exception E){
             System.debug('An error has occurred: ' + E.getMessage());
         }
@@ -41,6 +44,40 @@ public class CreateAccountController {
             contactsLoaded = true;
         }
         return conactsByState;
+    }
+    
+    //From the list of names passed in, pull the contacts with that name.
+    private static List<Contact> getContactsByName(List<String> names){
+        List<Contact> neededContacts = new List<Contact>();
+        for(Contact cont : conactsByState){
+            if(names.contains(cont.name)){
+                neededContacts.add(cont);
+            }
+        }
+        return neededContacts;
+    }
+    
+    //turn the weird string javascript returns into a list of names of the contacts
+    private static List<String> generateNames(String contactNames){
+		List<String> names = new List<String>();
+        String currentName = '';
+        //The first character will be a ( so skip it and start at 1
+        for(Integer i=1; i<contactNames.length(); i++){
+            String character = contactNames.substring(i, i+1);
+            System.debug('the current char is: ' + character);
+            if(character == ','){ //name is finished being written so add it so the list
+				names.add(currentName);
+                i++;//There is a space after every , so skip that extra space
+                System.debug('name is:' + currentName);
+                currentName = '';
+            } else if(character == ')'){//last name so break after adding it to list
+                names.add(currentName);
+                break;
+            } else {
+                currentName += character;
+            }
+        }
+        return names;
     }
     
     //filter the contacts to only those from the specified state and pass to client side controller

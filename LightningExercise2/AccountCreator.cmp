@@ -4,7 +4,7 @@
     <aura:attribute name="AccountState" type="String" />
     <aura:attribute name="ContactsInState" type="List" />
     <aura:attribute name="SelectedContacts" type="List" />
-    <aura:attribute name="disableList" type="Boolean" default="true"/>
+    <aura:attribute name="disableList" type="Boolean"/>
     
     <lightning:card iconName="standard:Account" title="Create Account">
         <div class="slds-form--stacked">
@@ -36,6 +36,17 @@
             </div> 
             <div class="slds-form-element">
                 <lightning:button variant="brand" label="Add Contact" onclick="{!c.addContact}" />
+            </div>
+            <div class="slds-form-element">
+                <div class="slds-form-element__control">
+                	<lightning:select aura:id="ContactSelected" label="Selected Contacts" readonly="true">
+                    	<aura:iteration items="{!v.SelectedContacts}" var="contacts">
+                            <option text="{!contacts}"></option>
+                        </aura:iteration>
+                    </lightning:select>
+				</div>
+            </div> 
+            <div class="slds-form-element">
                 <lightning:button variant="brand" label="Save Account" onclick="{!c.saveAccount}" />
             </div>
         </div>
