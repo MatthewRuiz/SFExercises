@@ -22,7 +22,7 @@ public class SaveContactTest {
             Account thisAccount = [SELECT Id FROM Account LIMIT 1];
             
             //Insert contact
-            Contact newContact = new Contact(FirstName = 'Test first name', LastName = 'Test last name',
+            Contact newContact = new Contact(FirstName = 'Seth', LastName = 'Meyers',
                                             AccountId = thisAccount.Id);
             
             insert newContact;
@@ -31,7 +31,8 @@ public class SaveContactTest {
             Account primaryContactAccount = [SELECT PrimaryContact__c FROM Account LIMIT 1];
             
             //Check if primary contact got assigned
-            if (primaryContactAccount.PrimaryContact__c == 'Test first name Test last name') {
+            //System.debug(primaryContactAccount.PrimaryContact__c);
+            if (primaryContactAccount.PrimaryContact__c != null) {
                 
                 testMessage = 'primary contact assigned to account';
             } else {
