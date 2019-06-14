@@ -1,0 +1,8 @@
+trigger SaveOpportunity on Opportunity (after insert) {
+
+    //After an opportunity is created
+    if (Trigger.isAfter && Trigger.isInsert) {
+        
+        PostToChatterOpportunity.postOpportunityToChatter(Trigger.new);
+    }
+}
