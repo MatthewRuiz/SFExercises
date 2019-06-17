@@ -28,25 +28,9 @@ public class SendEmailForSavedOpportunity {
         //Set subject
         subject = 'Expected revenue at or below $100,000';
         
-        //This loop is generating the number of changed opportunities.
-        for (Opportunity eachOpportunity: useOpportunities) {
-            
-            if (eachOpportunity.ExpectedRevenue <= 100000) {
-                
-                numberOfChangedOpportunities++;
-            }
-        }
-        
-        //This if else block is part of the email message.
-        if (numberOfChangedOpportunities < 2) {
 
-        	emailMessage += UserInfo.getFirstName() + ' ' + UserInfo.getLastName() + ', ' +
-                'your expected revenue has fallen for the following opportunity.\n\nHere are the details:\n\n';            
-        } else {
-
-        	emailMessage += UserInfo.getFirstName() + ' ' + UserInfo.getLastName() + ', ' +
-                'your expected revenue has fallen for the following opportunities.\n\nHere are the details:\n\n';            
-        }
+       	emailMessage += UserInfo.getFirstName() + ' ' + UserInfo.getLastName() + ', ' +
+                'your expected revenue has fallen for the following opportunity/opportunities.\n\nHere are the details:\n\n';
         
         //For each opportunity that has an expected revenue of $100,000 or less, show details.
         for (Opportunity eachOpportunity: useOpportunities) {
@@ -56,6 +40,8 @@ public class SendEmailForSavedOpportunity {
                 emailMessage += 'Opportunity name: ' + eachOpportunity.Name + '\n';
                 emailMessage += 'Stage: ' + eachOpportunity.StageName + '\n';
                 emailMessage += 'Expected revenue: $' + eachOpportunity.ExpectedRevenue + '\n\n';
+                
+                numberOfChangedOpportunities++;
             }
         }
         
