@@ -1,0 +1,9 @@
+trigger SaveOpportunity on Opportunity (after update) {
+
+    //After an opportunity is changed
+    if (Trigger.isAfter && Trigger.isUpdate) {
+        
+        SendEmailForSavedOpportunity.generateEmail(Trigger.new);
+        SendEmailForSavedOpportunity.sendEmail();
+    }
+}
