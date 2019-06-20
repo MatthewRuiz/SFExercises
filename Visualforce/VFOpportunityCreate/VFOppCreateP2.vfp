@@ -1,0 +1,18 @@
+<apex:page controller="VFOppCreateCtrl">
+    <apex:form >
+        <apex:pageBlock title="New Opportunity Wizard: Step 2">
+            <apex:pageBlockSection title="Necessary Field" >
+                <apex:inputText value="{!closeDate}" required="true" label="Opportunty Close Date: " />
+                <apex:messages style="color: red" />
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:pageBlock >
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton disabled="{!NOT(hasPrevious)}" action="{!previous}" value="Previous"/>
+                <apex:outputLabel value="{!pageNum}" />
+                <apex:commandButton disabled="{!NOT(hasNext)}" action="{!next}" value="Next"/>
+                <apex:commandButton rendered="{!IF(pageNum == 4, true, false)}" action="{!saveOpp}" value="Save" />
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

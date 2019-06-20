@@ -1,0 +1,6 @@
+<apex:page controller="VFOppCreateCtrl" action="{!init}">
+    <apex:include pageName="VFOppCreateP1" rendered="{!IF(pageNum == 1, true, false)}"/>
+    <apex:include pageName="VFOppCreateP2" rendered="{!IF(pageNum == 2, true, false)}"/>
+    <apex:include pageName="VFOppCreateP3" rendered="{!IF(pageNum == 3, true, false)}"/>
+    <apex:include pageName="VFOppCreateP4" rendered="{!IF(pageNum == 4, true, false)}"/>
+</apex:page>

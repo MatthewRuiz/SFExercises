@@ -1,0 +1,101 @@
+public class VFOppCreateCtrl {
+    // Create a 'x' page wizard that allows a user to create an Opportunity, 
+    // with each page accepting in a required field. On the last page, the user 
+    // should be presented with all of their input. They should also be able to 
+    // associate the Opportunity with an Account. They should select an account from a list.
+    // USE THIS -> SELECT Name, Probability, Amount, CloseDate, StageName FROM Opportunity
+    // USE THIS -> <Apex:Include pageName=""/>
+    
+    // required fields and fetch stageName for picklist
+    public String name {get; set;}
+    public Date closeDate {get; set;}
+    public String stageName {get; set;}
+    public Id accountId {get; set;}
+    // required fields to set off trigger
+    public Double probability {get; set;}
+    public Integer amount {get; set;}
+    // track page
+    public Integer pageNum {get; set;}
+    public Boolean hasNext {get; set;}
+    public Boolean hasPrevious {get; set;}
+    
+    // to fetch picklist from object, need array to store into stagingName picklist
+    // using schema.describefieldresult with getdescribe, we can fetch picklist as schema.picklistentry
+    // iterate through schema.picklistentry and store the value into an array list. 
+    public List<SelectOption> getItem() {
+        List<SelectOption> StageNameList = new List<SelectOption>();
+        Schema.DescribeFieldResult StageResult = Opportunity.StageName.getDescribe();
+        List<Schema.PicklistEntry> StagePickListEntry = StageResult.getPicklistValues();
+        
+        for( Schema.PicklistEntry thisList : StagePickListEntry){
+            String option = thisList.getLabel();
+            String value = thisList.getValue();
+            StageNameList.add(new SelectOption(option, value));
+        }
+        
+        return StageNameList;
+    }
+    
+    public List<SelectOption> getAccountList() {
+        List<SelectOption> AccountList = new List<SelectOption>();
+        List<Account> thisAccount = [SELECT Id, Name FROM Account WHERE Name != null];
+        for(Account a : thisAccount){
+            String option = a.Id;
+            String value = a.Name;
+            AccountList.add(new SelectOption(option, value));
+        }
+        
+        return AccountList;
+    }
+    
+    // initialize the page's default value for pagination
+    public void init() {
+        pageNum = 1;
+        hasPrevious = false;
+        hasNext = true;
+    }
+    
+    // finally, save the opportunity
+    public void saveOpp() {
+        Opportunity thisOpp = new Opportunity();
+        thisOpp.Name = name;
+        thisOpp.CloseDate = closeDate;
+        thisOpp.StageName = stageName;
+        thisOpp.Probability = probability;
+        thisOpp.Amount = amount;
+        thisOpp.AccountId = accountId;
+        
+        insert thisOpp;
+    }
+    
+    // previous and next button
+    public void previous() {
+        if (pageNum == 1) {
+            hasNext = false;
+            hasPrevious = true;
+        } else if (pageNum <= 4) {
+            pageNum -= 1;
+            hasNext = true;
+            hasPrevious = true;
+            if (pageNum == 1) {
+                hasNext = true;
+                hasPrevious = false;
+            }
+        }
+    }
+    
+    public void next() {
+        if (pageNum == 4) {
+            hasNext = false;
+            hasPrevious = true;
+        } else if (pageNum >= 1) {
+            pageNum += 1;
+            hasNext = true;
+            hasPrevious = true;
+            if (pageNum == 4) {
+                hasNext = false;
+                hasPrevious = true;
+            }
+        }
+    }
+}

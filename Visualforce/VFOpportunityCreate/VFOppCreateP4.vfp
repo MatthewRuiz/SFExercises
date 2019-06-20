@@ -1,0 +1,27 @@
+<apex:page controller="VFOppCreateCtrl">
+    <apex:form >
+        <apex:pageBlock title="New Opportunity Wizard: Step 4">
+            <apex:pageBlockSection title="CURRENT FIELDS">
+                <apex:outputText value="{!name}" />
+                <apex:outputText value="{!closeDate}" />
+                <apex:outputText value="{!stageName}" />
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="OPTIONAL FIELDS">
+                <apex:selectList value="{!accountId}" multiselect="false" size="1" required="true" label="Associated Account: ">
+                    <apex:selectOptions value="{!accountList}"/>
+                </apex:selectList>
+                <apex:inputText value="{!probability}" label="Opportunty Probability: " />
+                <apex:inputText value="{!amount}" label="Opportunty Amount: " />
+                <apex:messages style="color: red" />
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:pageBlock >
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton disabled="{!NOT(hasPrevious)}" action="{!previous}" value="Previous"/>
+                <apex:outputLabel value="{!pageNum}" />
+                <apex:commandButton disabled="{!NOT(hasNext)}" action="{!next}" value="Next"/>
+                <apex:commandButton rendered="{!IF(pageNum == 4, true, false)}" action="{!saveOpp}" value="Save" />
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
