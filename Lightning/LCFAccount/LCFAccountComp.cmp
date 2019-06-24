@@ -1,0 +1,29 @@
+<aura:component controller="LCFAccountsController">
+    <!-- an attribute to store account, and handler to activate method at start -->
+    <aura:attribute name="accounts" type="List" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <!-- table to represent the account list visually, style tag optional -->
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+        <thead>
+            <tr class="slds-line-height_reset">
+                <th scope="col"><div class="slds-truncate">Name</div></th>
+                <th scope="col"><div class="slds-truncate">Number Of Employees</div></th>
+                <th scope="col"><div class="slds-truncate">Industry</div></th>
+                <th scope="col"><div class="slds-truncate">Annual Revenue</div></th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- aura iteration iterate list like datatabel in vf -->
+            <!-- ITERATING VALUE ARE CAP SENSETIVE! -->
+            <aura:iteration items="{!v.accounts}" var="account">
+                <tr>
+                    <td><div class="slds-truncate">{!account.Name}</div></td>
+                    <td><div class="slds-truncate">{!account.NumberOfEmployees}</div></td>
+                    <td><div class="slds-truncate">{!account.Industry}</div></td>
+                    <td><div class="slds-truncate">{!account.AnnualRevenue}</div></td>
+                </tr>
+            </aura:iteration>
+        </tbody>
+    </table>
+</aura:component>

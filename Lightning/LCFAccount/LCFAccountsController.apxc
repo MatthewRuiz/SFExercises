@@ -1,0 +1,8 @@
+// Aura enabled placed to allow the method be used by lightning
+public class LCFAccountsController {
+	@AuraEnabled
+    public static List<Account> getAccounts() {
+        List<Account> thisAccount = [SELECT name, industry, annualRevenue, numberOfEmployees FROM Account WHERE name != null];
+        return thisAccount;
+    }
+}
