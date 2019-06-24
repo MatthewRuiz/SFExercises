@@ -1,0 +1,16 @@
+public with sharing class LCFCreateAccoutController {
+    @AuraEnabled
+    public static void addAccount(Account newAccount) {
+        // check if the user can create account and if there are any exception
+        if (!Schema.sObjectType.Account.isCreateable()) {
+            throw new AuraHandledException('You cannot create Account');
+        } else {
+            try {
+            	insert newAccount;
+                System.debug('The record has been successfully submitted');
+            } catch (exception e) {
+                System.debug('An error has occured: ' + e.getMessage());
+            }
+        }
+    }
+}

@@ -1,0 +1,9 @@
+<aura:component controller="LCFCreateAccoutController">
+    <aura:attribute name="newAccount" type="Account" default="{'sobjectType' : 'Account', 'Name' : ''}" />
+    
+    <lightning:card title="Create Account">
+        <lightning:input name="Name" label="Name: " value="{!v.newAccount.Name}" required="true" />
+        
+        <lightning:button variant="brand" label="Submit" title="Submit" onclick="{!c.createAccount}" />
+    </lightning:card>
+</aura:component>
