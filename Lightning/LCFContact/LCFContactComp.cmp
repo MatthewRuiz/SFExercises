@@ -1,0 +1,11 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" controller="LCFContactController">
+    <aura:attribute name="newContact" type="Contact" default="{'sobjectType' : 'Contact', 'LastName' : ''}"/>
+    <div style="border-radius: 10px; background-color: white; padding: 10px">
+        <form>
+            <label>Create an Associated Contact</label>
+            <p><lightning:input name="firstName" value="{!v.newContact.FirstName }" label="First Name: " /></p>
+            <p><lightning:input name="lastName" value="{!v.newContact.LastName }" label="Last Name: " required="true" /></p>
+            <p style="padding: 10px 0"><lightning:button variant="brand" label="Submit" onclick="{!c.createContact}" /></p>
+        </form>
+    </div>
+</aura:component>

@@ -1,0 +1,17 @@
+public with sharing class LCFContactController {
+    @AuraEnabled
+    public static void createContact(Contact newContact) {
+        if (!Schema.sObjectType.Account.isCreateable()) {
+            throw new AuraHandledException('You cannot create Account');
+        } else {
+            try {
+                Id acctId = ApexPages.currentPage().getParameters().get('id');
+                newContact.AccountId = acctId;
+                upsert newContact;
+                System.debug('The record has been successfully submitted');
+            } catch (exception e) {
+                System.debug('An error has occured: ' + e.getMessage());
+            }
+        }
+    }
+}
