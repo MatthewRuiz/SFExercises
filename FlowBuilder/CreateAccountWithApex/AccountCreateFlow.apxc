@@ -1,0 +1,14 @@
+global class AccountCreateFlow {
+	@InvocableMethod
+    public static void createAccount(List<String> s) {
+        List<Account> thisAccount = new List<Account>();
+        
+        for (String thisString : s) {
+            Account a = new Account();
+            a.Name = thisString;
+            thisAccount.add(a);
+        }
+        
+        insert thisAccount;
+    }
+}
